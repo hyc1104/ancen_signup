@@ -2,12 +2,12 @@
 // 如「模組目錄」= signup，則「首字大寫模組目錄」= Signup
 // 如「資料表名」= actions，則「模組物件」= Actions
 use Xmf\Request;
+use XoopsModules\Ancen_signup\Ancen_signup_actions;
 use XoopsModules\Tadtools\Utility;
-use XoopsModules\首字大寫模組目錄\模組物件;
 
 /*-----------引入檔案區--------------*/
 require_once __DIR__ . '/header.php';
-$GLOBALS['xoopsOption']['template_main'] = '模組目錄_index.tpl';
+$GLOBALS['xoopsOption']['template_main'] = 'ancen_signup_index.tpl';
 require_once XOOPS_ROOT_PATH . '/header.php';
 
 /*-----------變數過濾----------*/
@@ -18,41 +18,41 @@ $id = Request::getInt('id');
 switch ($op) {
 
     //新增表單
-    case '資料表名_create':
-        模組物件::create();
+    case 'ancen_signup_actions_create':
+        Ancen_signup_actions::create();
         break;
 
     //新增資料
-    case '資料表名_store':
-        $id = 模組物件::store();
+    case 'ancen_signup_actions_store':
+        $id = Ancen_signup_actions::store();
         header("location: {$_SERVER['PHP_SELF']}?id=$id");
         exit;
 
     //修改用表單
-    case '資料表名_edit':
-        模組物件::create($id);
-        $op = '資料表名_create';
+    case 'ancen_signup_actions_edit':
+        Ancen_signup_actions::create($id);
+        $op = 'ancen_signup_actions_create';
         break;
 
     //更新資料
-    case '資料表名_update':
-        模組物件::update($id);
+    case 'ancen_signup_actions_update':
+        Ancen_signup_actions::update($id);
         header("location: {$_SERVER['PHP_SELF']}?id=$id");
         exit;
 
     //刪除資料
-    case '資料表名_destroy':
-        模組物件::destroy($id);
+    case 'ancen_signup_actions_destroy':
+        Ancen_signup_actions::destroy($id);
         header("location: {$_SERVER['PHP_SELF']}");
         exit;
 
     default:
         if (empty($id)) {
-            模組物件::index();
-            $op = '資料表名_index';
+            Ancen_signup_actions::index();
+            $op = 'ancen_signup_actions_index';
         } else {
-            模組物件::show($id);
-            $op = '資料表名_show';
+            Ancen_signup_actions::show($id);
+            $op = 'ancen_signup_actions_show';
         }
         break;
 }
@@ -63,5 +63,5 @@ switch ($op) {
 unset($_SESSION['api_mode']);
 $xoopsTpl->assign('toolbar', Utility::toolbar_bootstrap($interface_menu));
 $xoopsTpl->assign('now_op', $op);
-$xoTheme->addStylesheet(XOOPS_URL . '/modules/模組目錄/css/module.css');
+$xoTheme->addStylesheet(XOOPS_URL . '/modules/ancen_signup/css/module.css');
 require_once XOOPS_ROOT_PATH . '/footer.php';
