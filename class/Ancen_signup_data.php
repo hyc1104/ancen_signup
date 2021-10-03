@@ -68,6 +68,7 @@ class Ancen_signup_data
         //Utility::dd($actions);
 
         $TadDataCenter = new TadDataCenter('ancen_signup');
+        $TadDataCenter->set_col('id', $id);
         $signup_form = $TadDataCenter->strToForm($action['setup']);
         $xoopsTpl->assign("signup_form", $signup_form);
     }

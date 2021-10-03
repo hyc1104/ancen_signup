@@ -65,6 +65,12 @@ switch ($op) {
         Ancen_signup_data::show($id);
         break;
 
+    //修改報名表單
+    case 'ancen_signup_data_edit':
+        Ancen_signup_data::create($action_id, $id);
+        $op = 'ancen_signup_data_create';
+        break;
+
     default:
         if (empty($id)) {
             Ancen_signup_actions::index();
