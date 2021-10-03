@@ -60,6 +60,11 @@ switch ($op) {
         redirect_header("{$_SERVER['PHP_SELF']}?op=ancen_signup_data_show&id=$id", 3, "成功報名活動!");
         break;
 
+    //顯示報名表
+    case 'ancen_signup_data_show':
+        Ancen_signup_data::show($id);
+        break;
+
     default:
         if (empty($id)) {
             Ancen_signup_actions::index();
