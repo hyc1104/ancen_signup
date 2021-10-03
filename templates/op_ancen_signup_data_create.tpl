@@ -23,6 +23,10 @@
 
 <form action="index.php" method="post" id="myForm" enctype="multipart/form-data" class="form-horizontal">
 
+    <div class="alert alert-success">
+        <{$signup_form}>
+    </div>
+
     <{$token_form}>
     <input type="hidden" name="op" value="<{$next_op}>">
     <input type="hidden" name="id" value="<{$id}>">
@@ -35,3 +39,9 @@
         </button>
     </div>
 </form>
+
+<{if $smarty.session.ancen_signup_adm}>
+    <div class="bar">
+        <a href="index.php?op=ancen_signup_actions_edit&id=<{$action.id}>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> 編輯活動</a>
+    </div>
+<{/if}>

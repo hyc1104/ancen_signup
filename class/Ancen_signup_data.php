@@ -6,6 +6,7 @@ namespace XoopsModules\Ancen_signup;
 
 use XoopsModules\Ancen_signup\Ancen_signup_actions;
 use XoopsModules\Tadtools\FormValidator;
+use XoopsModules\Tadtools\TadDataCenter;
 use XoopsModules\Tadtools\Utility;
 
 class Ancen_signup_data
@@ -66,6 +67,9 @@ class Ancen_signup_data
         $xoopsTpl->assign("uid", $uid);
         //Utility::dd($actions);
 
+        $TadDataCenter = new TadDataCenter('ancen_signup');
+        $signup_form = $TadDataCenter->strToForm($action['setup']);
+        $xoopsTpl->assign("signup_form", $signup_form);
     }
 
     //新增資料
