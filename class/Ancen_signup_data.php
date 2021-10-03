@@ -112,7 +112,7 @@ class Ancen_signup_data
     //以流水號秀出某筆資料內容
     public static function show($id = '')
     {
-        global $xoopsDB, $xoopsTpl;
+        global $xoopsTpl, $xoopsUser;
 
         if (empty($id)) {
             return;
@@ -143,6 +143,9 @@ class Ancen_signup_data
             $action[$col_name] = $col_val;
         }
         $xoopsTpl->assign("action", $action);
+
+        $now_uid = $xoopsUser ? $xoopsUser->uid() : 0;
+        $xoopsTpl->assign("now_uid", $now_uid);
     }
 
     //更新某一筆資料
