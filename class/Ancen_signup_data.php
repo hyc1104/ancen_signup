@@ -86,19 +86,26 @@ class Ancen_signup_data
             $$var_name = $myts->addSlashes($var_val);
         }
 
+        $action_id = (int) $action_id;
+        $uid = (int) $uid;
+
         $sql = "insert into `" . $xoopsDB->prefix("ancen_signup_data") . "` (
-        `欄位1`,
-        `欄位2`,
-        `欄位3`
+        `action_id`,
+        `uid`,
+        `signup_date`
         ) values(
-        '{$欄位1值}',
-        '{$欄位2值}',
-        '{$欄位3值}'
+        '{$action_id}',
+        '{$uid}',
+        now()
         )";
-        $xoopsDB->query($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+        $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
 
         //取得最後新增資料的流水編號
         $id = $xoopsDB->getInsertId();
+
+        $TadDataCenter = new TadDataCenter('ancen_signup');
+        $TadDataCenter->set_col('id', $id);
+        $TadDataCenter->saveData();
         return $id;
     }
 

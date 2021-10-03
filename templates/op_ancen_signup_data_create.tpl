@@ -30,7 +30,7 @@
     <{$token_form}>
     <input type="hidden" name="op" value="<{$next_op}>">
     <input type="hidden" name="id" value="<{$id}>">
-    <input type="hidden" name="action_id" value="<{$action_id}>">
+    <input type="hidden" name="action_id" value="<{$action.id}>">
     <input type="hidden" name="uid" value="<{$uid}>">
 
     <div class="bar">

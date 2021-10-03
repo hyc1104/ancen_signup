@@ -23,7 +23,7 @@ switch ($op) {
         Ancen_signup_actions::create();
         break;
 
-    //新增資料
+    //新增活動資料
     case 'ancen_signup_actions_store':
         $id = Ancen_signup_actions::store();
         header("location: {$_SERVER['PHP_SELF']}?id=$id");
@@ -51,6 +51,13 @@ switch ($op) {
     //新增報名表單
     case 'ancen_signup_data_create':
         Ancen_signup_data::create($action_id);
+        break;
+
+    //新增報名儲存表單
+    case 'ancen_signup_data_store':
+        $id = Ancen_signup_data::store();
+        //header("location: {$_SERVER['PHP_SELF']}?op=ancen_signup_data_show&id=$id");
+        redirect_header("{$_SERVER['PHP_SELF']}?op=ancen_signup_data_show&id=$id", 3, "成功報名活動!");
         break;
 
     default:
