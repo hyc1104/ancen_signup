@@ -50,7 +50,7 @@ switch ($op) {
 
     //新增報名表單
     case 'ancen_signup_data_create':
-        Ancen_signup_data::create();
+        Ancen_signup_data::create($action_id);
         break;
 
     default:
