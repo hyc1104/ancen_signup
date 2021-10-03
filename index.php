@@ -4,7 +4,6 @@
 use Xmf\Request;
 use XoopsModules\Ancen_signup\Ancen_signup_actions;
 use XoopsModules\Tadtools\Utility;
-
 /*-----------引入檔案區--------------*/
 require_once __DIR__ . '/header.php';
 $GLOBALS['xoopsOption']['template_main'] = 'ancen_signup_index.tpl';
@@ -43,7 +42,8 @@ switch ($op) {
     //刪除資料
     case 'ancen_signup_actions_destroy':
         Ancen_signup_actions::destroy($id);
-        header("location: {$_SERVER['PHP_SELF']}");
+        //header("location: {$_SERVER['PHP_SELF']}");
+        redirect_header($_SERVER['PHP_SELF'], 3, "成功刪除活動!");
         exit;
 
     default:
