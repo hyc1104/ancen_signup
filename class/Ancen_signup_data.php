@@ -47,7 +47,7 @@ class Ancen_signup_data
 
         $action = Ancen_signup_actions::get($action_id);
 
-        if (time() > strtotime($actions['end_date'])) {
+        if (time() > strtotime($action['end_date'])) {
             redirect_header($_SERVER['PHP_SELF'], 3, "已報名截止，無法再進行報名或修改報名!");
         }
 
