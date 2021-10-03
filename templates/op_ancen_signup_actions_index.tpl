@@ -13,7 +13,9 @@
     <tbody>
         <{foreach from=$all_data key=id item=action name=all_data}>
             <tr>
-                <td><{$action.title}></td>
+                <td>
+                    <a href="index.php?id=<{$action.id}>"><{$action.title}></a>
+                </td>
                 <td><{$action.action_date}></td>
                 <td><{$action.end_date}></td>
                 <td>0/<{$action.number}></td>

@@ -6,6 +6,7 @@ namespace XoopsModules\Ancen_signup;
 
 use XoopsModules\Tadtools\FormValidator;
 use XoopsModules\Tadtools\My97DatePicker;
+use XoopsModules\Tadtools\SweetAlert;
 use XoopsModules\Tadtools\Utility;
 
 class Ancen_signup_actions
@@ -134,6 +135,8 @@ class Ancen_signup_actions
             }
             $xoopsTpl->assign($col_name, $col_val);
         }
+        $SweetAlert = new SweetAlert();
+        $SweetAlert->render("del_action", "index.php?op=ancen_signup_actions_destroy&id=", 'id');
     }
 
     //更新某一筆資料
@@ -176,6 +179,9 @@ class Ancen_signup_actions
     public static function destroy($id = '')
     {
         global $xoopsDB;
+        if (!$_SESSION['ancen_signup_adm']) {
+            redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
+        }
 
         if (empty($id)) {
             return;
