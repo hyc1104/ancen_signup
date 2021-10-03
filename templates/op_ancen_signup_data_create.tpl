@@ -1,4 +1,25 @@
-<h2 class="my">報名表</h2>
+<h2 class="my">
+
+    <{if $action.enable}>
+    <i class="fa fa-check text-success" aria-hidden="true"></i>
+    <{else}>
+    <i class="fa fa-times text-danger" aria-hidden="true"></i>
+    <{/if}>
+    <{$action.title}>
+    <small><i class="fa fa-calculator" aria-hidden="true"></i> 活動日期：<{$action.action_date}></small>
+</h2>
+
+<div class="alert alert-info">
+    <{$action.detail}>
+</div>
+
+<h3 class="my">
+    報名表
+    <small>
+        <i class="fa fa-calendar-check-o" aria-hidden="true"></i> 報名截止日期：<{$action.end_date}>
+        <i class="fa fa-users" aria-hidden="true"></i> 報名人數上限：<{$action.number}>
+    </small>
+</h3>
 
 <form action="index.php" method="post" id="myForm" enctype="multipart/form-data" class="form-horizontal">
 
