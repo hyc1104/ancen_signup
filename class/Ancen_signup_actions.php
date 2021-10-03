@@ -16,6 +16,9 @@ class Ancen_signup_actions
         global $xoopsTpl;
 
         $all_data = self::get_all();
+
+        //Utility::dd($all_data);
+
         $xoopsTpl->assign('all_data', $all_data);
     }
 
