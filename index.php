@@ -78,6 +78,13 @@ switch ($op) {
         redirect_header("{$_SERVER['PHP_SELF']}?op=ancen_signup_data_show&id=$id", 3, "成功修改報名資料!");
         exit;
 
+    //刪除報名資料
+    case 'ancen_signup_data_destroy':
+        Ancen_signup_data::destroy($id);
+        //header("location: {$_SERVER['PHP_SELF']}");
+        redirect_header("{$_SERVER['PHP_SELF']}?id=$action_id", 3, "成功刪除報名資料!");
+        exit;
+
     default:
         if (empty($id)) {
             Ancen_signup_actions::index();

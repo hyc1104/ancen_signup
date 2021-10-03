@@ -6,6 +6,7 @@ namespace XoopsModules\Ancen_signup;
 
 use XoopsModules\Ancen_signup\Ancen_signup_actions;
 use XoopsModules\Tadtools\FormValidator;
+use XoopsModules\Tadtools\SweetAlert;
 use XoopsModules\Tadtools\TadDataCenter;
 use XoopsModules\Tadtools\Utility;
 
@@ -147,6 +148,8 @@ class Ancen_signup_data
 
         $now_uid = $xoopsUser ? $xoopsUser->uid() : 0;
         $xoopsTpl->assign("now_uid", $now_uid);
+        $SweetAlert = new SweetAlert();
+        $SweetAlert->render("del_data", "index.php?op=ancen_signup_data_destroy&action_id={$action_id}&id=", 'id');
     }
 
     //更新某一筆資料
@@ -185,15 +188,23 @@ class Ancen_signup_data
     //刪除某筆資料資料
     public static function destroy($id = '')
     {
-        global $xoopsDB;
+        global $xoopsDB, $xoopsUser;
 
         if (empty($id)) {
             return;
         }
-
+        $now_uid = $xoopsUser ? $xoopsUser->uid() : 0;
         $sql = "delete from `" . $xoopsDB->prefix("ancen_signup_data") . "`
-        where `id` = '{$id}'";
-        $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+        where `id` = '{$id}' and `uid` = '{$now_uid}'";
+        if ($xoopsDB->queryF($sql)) {
+            $TadDataCenter = new TadDataCenter('ancen_signup');
+            $TadDataCenter->set_col(id, $id);
+            $TadDataCenter->delData();
+
+        } else {
+
+            Utility::web_error($sql, __FILE__, __LINE__);
+        }
     }
 
     //以流水號取得某筆資料
