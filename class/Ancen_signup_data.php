@@ -235,7 +235,7 @@ class Ancen_signup_data
         $TadDataCenter = new TadDataCenter('ancen_signup');
         while ($data = $xoopsDB->fetchArray($result)) {
 
-            $TadDataCenter->set_col('id', $id);
+            $TadDataCenter->set_col('id', $data['id']);
             $data['tdc'] = $TadDataCenter->getData();
 
             if ($_SESSION['api_mode'] or $auto_key) {

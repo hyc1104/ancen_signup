@@ -4,6 +4,8 @@
 
 namespace XoopsModules\Ancen_signup;
 
+use XoopsModules\Ancen_signup\Ancen_signup_data;
+use XoopsModules\Tadtools\BootstrapTable;
 use XoopsModules\Tadtools\FormValidator;
 use XoopsModules\Tadtools\My97DatePicker;
 use XoopsModules\Tadtools\SweetAlert;
@@ -12,11 +14,11 @@ use XoopsModules\Tadtools\Utility;
 class Ancen_signup_actions
 {
     //列出所有資料
-    public static function index($action_id)
+    public static function index()
     {
         global $xoopsTpl;
 
-        $all_data = self::get_all($action_id);
+        $all_data = self::get_all();
 
         //Utility::dd($all_data);
 
@@ -137,6 +139,13 @@ class Ancen_signup_actions
         }
         $SweetAlert = new SweetAlert();
         $SweetAlert->render("del_action", "index.php?op=ancen_signup_actions_destroy&id=", 'id');
+
+        $signup = Ancen_signup_data::get_all($id, true);
+        //Utility::dd($signup);
+        $xoopsTpl->assign('signup', $signup);
+
+        BootstrapTable::render();
+
     }
 
     //更新某一筆資料
