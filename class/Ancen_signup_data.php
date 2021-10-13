@@ -248,6 +248,7 @@ class Ancen_signup_data
 
             $TadDataCenter->set_col('id', $data['id']);
             $data['tdc'] = $TadDataCenter->getData();
+            $data['action'] = Ancen_signup_actions::get($data['action_id']);
 
             if ($_SESSION['api_mode'] or $auto_key) {
                 $data_arr[] = $data;
