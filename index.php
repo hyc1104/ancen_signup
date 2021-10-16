@@ -14,6 +14,7 @@ require_once XOOPS_ROOT_PATH . '/header.php';
 $op = Request::getString('op');
 $id = Request::getInt('id');
 $action_id = Request::getInt('action_id');
+$accept = Request::getInt('accept');
 
 /*-----------執行動作判斷區----------*/
 switch ($op) {
@@ -83,6 +84,12 @@ switch ($op) {
         Ancen_signup_data::destroy($id);
         //header("location: {$_SERVER['PHP_SELF']}");
         redirect_header("{$_SERVER['PHP_SELF']}?id=$action_id", 3, "成功刪除報名資料!");
+        exit;
+
+    //更改錄取狀態
+    case 'ancen_signup_data_accept':
+        Ancen_signup_data::accept($id, $accept);
+        redirect_header("{$_SERVER['PHP_SELF']}?id=$action_id", 3, "成功設定錄取狀態!");
         exit;
 
     default:
