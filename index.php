@@ -57,7 +57,7 @@ switch ($op) {
     //新增報名儲存表單
     case 'ancen_signup_data_store':
         $id = Ancen_signup_data::store();
-        //header("location: {$_SERVER['PHP_SELF']}?op=ancen_signup_data_show&id=$id");
+        Ancen_signup_data::mail($id, 'store');
         redirect_header("{$_SERVER['PHP_SELF']}?op=ancen_signup_data_show&id=$id", 3, "成功報名活動!");
         break;
 
@@ -75,20 +75,23 @@ switch ($op) {
     //更新報名資料
     case 'ancen_signup_data_update':
         Ancen_signup_data::update($id);
-        //header("location: {$_SERVER['PHP_SELF']}?op=ancen_signup_data_show&id=$id");
+        Ancen_signup_data::mail($id, 'update');
         redirect_header("{$_SERVER['PHP_SELF']}?op=ancen_signup_data_show&id=$id", 3, "成功修改報名資料!");
         exit;
 
     //刪除報名資料
     case 'ancen_signup_data_destroy':
+        $uid = $_SESSION['ancen_signup_adm'] ? null : $xoopsUser->uid();
+        $signup = Ancen_signup_data::get($id, $uid);
         Ancen_signup_data::destroy($id);
-        //header("location: {$_SERVER['PHP_SELF']}");
+        Ancen_signup_data::mail($id, 'destroy', $signup);
         redirect_header("{$_SERVER['PHP_SELF']}?id=$action_id", 3, "成功刪除報名資料!");
         exit;
 
     //更改錄取狀態
     case 'ancen_signup_data_accept':
         Ancen_signup_data::accept($id, $accept);
+        Ancen_signup_data::mail($id, 'accept');
         redirect_header("{$_SERVER['PHP_SELF']}?id=$action_id", 3, "成功設定錄取狀態!");
         exit;
 
