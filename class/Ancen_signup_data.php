@@ -287,4 +287,36 @@ class Ancen_signup_data
         return $xoopsMailer->sendMail($email, $title, $content, $header);
     }
 
+    //產生通知信
+    public static function mail($id, $type, $signup = [])
+    {
+        global $xoopsUser;
+        $id = (int) $id;
+
+        if (empty($id)) {
+            redirect_header($_SERVER['PHP_SELF'], 3, "無編號，無法寄送通知信");
+        }
+
+        $signup = $signup ? $signup : self::get($id, true);
+        $now = date("Y-m-d H:i:s");
+        $name = $xoopsUser->name();
+        $name = $name ? $name : $xoopsUser->uname();
+
+        $action = Ancen_signup_actions::get($signup['action_id']);
+
+        $member_handler = xoops_getHandler('member');
+        $admUser = $member_handler->getUser($action['uid']);
+        $adm_email = $admUser->email();
+
+        if ($type == 'destroy') {
+            $title = "【{$action['title']}】取消報名通知";
+            $content = "<p>您於【{$signup['signup_date']}】報名了【{$action['title']}】活動已於{$now} 由 {$name}取消報名。</p>";
+            $content .= "欲重新報名，請連至 " . XOOPS_URL . "/modules/ancen_signup/index.php?op=ancen_signup_data_create&action_id={$action['id']}";
+        }
+        if (!self::send($title, $content, $email)) {
+            redirect_header($_SERVER['PHP_SELF'], 3, "通知信寄送失敗!");
+        }
+        self::send($title, $content, $adm_email);
+    }
+
 }
