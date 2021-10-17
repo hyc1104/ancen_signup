@@ -297,7 +297,7 @@ class Ancen_signup_data
             redirect_header($_SERVER['PHP_SELF'], 3, "無編號，無法寄送通知信");
         }
 
-        $signup = $signup ? $signup : self::get($id, true);
+        $signup = $signup ? $signup : self::get($id);
         $now = date("Y-m-d H:i:s");
         $name = $xoopsUser->name();
         $name = $name ? $name : $xoopsUser->uname();
@@ -315,11 +315,22 @@ class Ancen_signup_data
         } elseif ($type == 'store') {
             $title = "【{$action['title']}】報名完成通知";
             $head = "<p>您於【{$signup['signup_date']}】報名【{$action['title']}】活動已於{$now} 由 {$name}報名完成。</p>";
-            $foot = "完整詳請，請連至 " . XOOPS_URL . "/modules/ancen_signup/index.php?op=ancen_signup_data_show&id={$signup['id']}";
+            $foot = "完整詳請，請連至 " . XOOPS_URL . "/modules/ancen_signup/index.php?id={$signup['action_id']}";
         } elseif ($type == 'update') {
             $title = "【{$action['title']}】修改報名資料通知";
             $head = "<p>您於【{$signup['signup_date']}】報名【{$action['title']}】活動已於{$now} 由 {$name}修改報名資料如下：</p>";
-            $foot = "完整詳請，請連至 " . XOOPS_URL . "/modules/ancen_signup/index.php?op=ancen_signup_data_show&id={$signup['id']}";
+            $foot = "完整詳請，請連至 " . XOOPS_URL . "/modules/ancen_signup/index.php?id={$signup['action_id']}";
+        } elseif ($type == 'accept') {
+            $title = "【{$action['title']}】報名錄取狀態通知";
+            if ($signup['accept'] == 1) {
+                $head = "<p>您於【{$signup['signup_date']}】報名【{$action['title']}】活動經審核為【<h2 style='color:blue'>錄取</h2>】，您的報名資料如下：</p>";
+            } else {
+                $head = "<p>您於【{$signup['signup_date']}】報名【{$action['title']}】活動經審核為【<span style='color:red;'>未錄取</span>】，您的報名資料如下：</p>";
+            }
+            $foot = "完整詳請，請連至 " . XOOPS_URL . "/modules/ancen_signup/index.php?id={$signup['action_id']}";
+
+            $signupUser = $member_handler->getUser($signup['uid']);
+            $email = $signupUser->email();
         }
 
         $content = self::mk_content($id, $head, $foot, $action);
