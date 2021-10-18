@@ -81,7 +81,7 @@ switch ($op) {
 
     //刪除報名資料
     case 'ancen_signup_data_destroy':
-        $uid = $_SESSION['ancen_signup_adm'] ? null : $xoopsUser->uid();
+        $uid = $_SESSION['can_add'] ? null : $xoopsUser->uid();
         $signup = Ancen_signup_data::get($id, $uid);
         Ancen_signup_data::destroy($id);
         Ancen_signup_data::mail($id, 'destroy', $signup);

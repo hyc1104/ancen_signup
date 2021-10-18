@@ -25,7 +25,7 @@
                 <td><{$action.end_date}></td>
                 <td><{$action.signup|@count}>/<{$action.number}></td>
                 <td>
-                    <{if $smarty.session.ancen_signup_adm}>
+                    <{if $smarty.session.can_add}>
                         <a href="<{$xoops_url}>/modules/ancen_signup/index.php?op=ancen_signup_actions_edit&id=<{$action.id}>" class="btn btn-sm btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> 編輯活動</a>
 
                         <a href="<{$xoops_url}>/modules/ancen_signup/index.php?op=ancen_signup_actions_copy&id=<{$action.id}>" class="btn btn-sm btn-info"><i class="fa fa-copy" aria-hidden="true"></i> 複製活動</a>
@@ -45,7 +45,7 @@
     </tbody>
 </table>
 
-<{if $smarty.session.ancen_signup_adm}>
+<{if $smarty.session.can_add}>
     <div class="bar">
         <a href="<{$xoops_url}>/modules/ancen_signup/index.php?op=ancen_signup_actions_create" class="btn btn-primary"><i class="fa fa-plus" aria-hidden="true"></i> 新增活動</a>
     </div>

@@ -40,7 +40,7 @@
     </div>
 </form>
 
-<{if $smarty.session.ancen_signup_adm}>
+<{if $smarty.session.can_add}>
     <div class="bar">
         <a href="<{$xoops_url}>/modules/ancen_signup/index.php?op=ancen_signup_actions_edit&id=<{$action.id}>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> 編輯活動</a>
     </div>

@@ -30,7 +30,7 @@ class Ancen_signup_actions
     {
         global $xoopsTpl, $xoopsUser;
 
-        if (!$_SESSION['ancen_signup_adm']) {
+        if (!$_SESSION['can_add']) {
             redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
         }
 
@@ -68,7 +68,7 @@ class Ancen_signup_actions
     public static function store()
     {
         global $xoopsDB;
-        if (!$_SESSION['ancen_signup_adm']) {
+        if (!$_SESSION['can_add']) {
             redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
         }
 
@@ -143,7 +143,7 @@ class Ancen_signup_actions
     public static function update($id = '')
     {
         global $xoopsDB;
-        if (!$_SESSION['ancen_signup_adm']) {
+        if (!$_SESSION['can_add']) {
             redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
         }
 
@@ -179,7 +179,7 @@ class Ancen_signup_actions
     public static function destroy($id = '')
     {
         global $xoopsDB;
-        if (!$_SESSION['ancen_signup_adm']) {
+        if (!$_SESSION['can_add']) {
             redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
         }
 
@@ -244,7 +244,7 @@ class Ancen_signup_actions
     public static function copy($id)
     {
         global $xoopsDB, $xoopsUser;
-        if (!$_SESSION['ancen_signup_adm']) {
+        if (!$_SESSION['can_add']) {
             redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
         }
 
