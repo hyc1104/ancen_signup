@@ -14,11 +14,11 @@ use XoopsModules\Tadtools\Utility;
 class Ancen_signup_actions
 {
     //列出所有資料
-    public static function index()
+    public static function index($only_enable = true)
     {
         global $xoopsTpl;
 
-        $all_data = self::get_all();
+        $all_data = self::get_all($only_enable);
 
         //Utility::dd($all_data);
 
