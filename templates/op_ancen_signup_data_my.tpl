@@ -12,7 +12,7 @@
         <{foreach from=$my_signup item=signup_data}>
             <tr>
                 <td>
-                    <a href="index.php?id=<{$signup_data.action_id}>">
+                    <a href="<{$xoops_url}>/modules/ancen_signup/index.php?id=<{$signup_data.action_id}>">
                         <{$signup_data.action.title}>
                     </a>
                 </td>
