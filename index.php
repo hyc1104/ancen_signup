@@ -103,7 +103,7 @@ switch ($op) {
 
     default:
         if (empty($id)) {
-            Ancen_signup_actions::index();
+            Ancen_signup_actions::index($xoopsModuleConfig['only_enable']);
             $op = 'ancen_signup_actions_index';
         } else {
             Ancen_signup_actions::show($id);
