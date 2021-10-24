@@ -71,7 +71,7 @@ $modversion['search'] = ['file' => 'include/search.php', 'func' => 'ancen_signup
 //     'options' => '設定值1|設定值2',
 // ];
 
----區塊設定---//
+//---區塊設定---//
 $modversion['blocks'][] = [
     'file' => 'action_list.php',
     'name' => '可報名活動一覽',
