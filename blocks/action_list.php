@@ -2,9 +2,9 @@
 use XoopsModules\Ancen_signup\Ancen_signup_actions;
 use XoopsModules\Tadtools\Utility;
 //可報名活動一覽
-function action_list()
+function action_list($options)
 {
-    $block = Ancen_signup_actions::get_all(true);
+    $block = Ancen_signup_actions::get_all(true, false, $options[0], $options[1]);
     return $block;
 }
 

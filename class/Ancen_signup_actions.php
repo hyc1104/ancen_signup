@@ -14,9 +14,9 @@ class Ancen_signup_actions
     //列出所有資料
     public static function index($only_enable = true)
     {
-        global $xoopsTpl, $xoopsUser;
+        global $xoopsTpl, $xoopsUser, $xoopsModuleConfig;
 
-        $all_data = self::get_all($only_enable);
+        $all_data = self::get_all($only_enable, false, $xoopsModuleConfig['show_number']);
 
         //Utility::dd($all_data);
 
@@ -238,17 +238,17 @@ class Ancen_signup_actions
     }
 
     //取得所有資料陣列
-    public static function get_all($only_enable = true, $auto_key = false)
+    public static function get_all($only_enable = true, $auto_key = false, $show_number = 20, $order = ", `action_date` desc")
     {
         global $xoopsDB, $xoopsModuleConfig, $xoopsTpl;
         $myts = \MyTextSanitizer::getInstance();
 
-        $and_enable = $only_enable ? "and `enable` = '1' and `action_date` >= now() " : '';
+        $and_enable = $only_enable ? "and `enable` = '1' and `end_date` >= now() " : '';
 
-        $sql = "select * from `" . $xoopsDB->prefix("ancen_signup_actions") . "` where 1 $and_enable order by `enable`, `action_date` desc";
+        $sql = "select * from `" . $xoopsDB->prefix("ancen_signup_actions") . "` where 1 $and_enable order by `enable` $order";
 
         //Utility::getPageBar($原sql語法, 每頁顯示幾筆資料, 最多顯示幾個頁數選項);
-        $PageBar = Utility::getPageBar($sql, $xoopsModuleConfig['show_number'], 10);
+        $PageBar = Utility::getPageBar($sql, $show_number, 10);
         $bar = $PageBar['bar'];
         $sql = $PageBar['sql'];
         $total = $PageBar['total'];
