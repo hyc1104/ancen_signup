@@ -7,6 +7,7 @@ use XoopsModules\Tadtools\CkEditor;
 use XoopsModules\Tadtools\FormValidator;
 use XoopsModules\Tadtools\My97DatePicker;
 use XoopsModules\Tadtools\SweetAlert;
+use XoopsModules\Tadtools\TadUpFiles;
 use XoopsModules\Tadtools\Utility;
 
 class Ancen_signup_actions
@@ -75,6 +76,11 @@ class Ancen_signup_actions
         $editor = $CkEditor->render();
         $xoopsTpl->assign("editor", $editor);
 
+        $TadUpFiles = new TadUpFiles("ancen_signup");
+        $TadUpFiles->set_col('action_id', $id);
+        $upform = $TadUpFiles->upform(true, 'upfile');
+        $xoopsTpl->assign("upform", $upform);
+
     }
 
     //新增資料
@@ -124,6 +130,11 @@ class Ancen_signup_actions
 
         //取得最後新增資料的流水編號
         $id = $xoopsDB->getInsertId();
+
+        $TadUpFiles = new TadUpFiles("ancen_signup");
+        $TadUpFiles->set_col('action_id', $id);
+        $TadUpFiles->upload_file('upfile', 1280, 240, '', null, true);
+
         return $id;
     }
 
@@ -195,6 +206,10 @@ class Ancen_signup_actions
         where `id` = '$id'";
         $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
 
+        $TadUpFiles = new TadUpFiles("ancen_signup");
+        $TadUpFiles->set_col('action_id', $id);
+        $TadUpFiles->upload_file('upfile', 1280, 240, '', null, true);
+
         return $id;
     }
 
@@ -219,6 +234,10 @@ class Ancen_signup_actions
         $sql = "delete from `" . $xoopsDB->prefix("ancen_signup_actions") . "`
         where `id` = '{$id}'";
         $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+
+        $TadUpFiles = new TadUpFiles("ancen_signup");
+        $TadUpFiles->set_col('action_id', $id);
+        $TadUpFiles->del_file();
     }
 
     //以流水號取得某筆資料
