@@ -1,10 +1,12 @@
 <?php
 use XoopsModules\Ancen_signup\Ancen_signup_actions;
+use XoopsModules\Ancen_signup\Ancen_signup_data;
 use XoopsModules\Tadtools\Utility;
 //活動報名焦點
 function action_signup($options)
 {
-    $block = Ancen_signup_actions::get_all($options[0], true);
+    $block = Ancen_signup_actions::get($options[0], true);
+    $block['signup'] = Ancen_signup_data::get_all($options[0], null, true);
     return $block;
 }
 
