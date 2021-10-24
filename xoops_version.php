@@ -71,6 +71,17 @@ $modversion['search'] = ['file' => 'include/search.php', 'func' => 'ancen_signup
 //     'options' => '設定值1|設定值2',
 // ];
 
+---區塊設定---//
+$modversion['blocks'][] = [
+    'file' => 'action_list.php',
+    'name' => '可報名活動一覽',
+    'description' => '列出所有可報名的活動',
+    'show_func' => 'action_list',
+    'template' => 'action_list.tpl',
+    'edit_func' => 'action_list_edit',
+    'options' => '5|,action_date desc',
+];
+
 //---偏好設定---//
 $modversion['config'][] = [
     'name' => 'show_number',
