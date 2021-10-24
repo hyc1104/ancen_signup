@@ -82,6 +82,16 @@ $modversion['blocks'][] = [
     'options' => '5|, `action_date` desc',
 ];
 
+$modversion['blocks'][] = [
+    'file' => 'action_signup.php',
+    'name' => '活動報名焦點',
+    'description' => '可選擇某一個活動讓使用者報名',
+    'show_func' => 'action_signup',
+    'template' => 'action_signup.tpl',
+    'edit_func' => 'action_signup_edit',
+    'options' => '',
+];
+
 //---偏好設定---//
 $modversion['config'][] = [
     'name' => 'show_number',
