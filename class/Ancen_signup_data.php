@@ -103,6 +103,14 @@ class Ancen_signup_data
         $TadDataCenter = new TadDataCenter('ancen_signup');
         $TadDataCenter->set_col('id', $id);
         $TadDataCenter->saveData();
+
+        $action = Ancen_signup_actions::get($action_id);
+        $action['signup'] = self::get_all($action_id);
+
+        if (count($action['signup']) > $action['number']) {
+            $TadDataCenter->set_col('data_id', $id);
+            $TadDataCenter->saveCustomData(['tag' => ['候補']]);
+        }
         return $id;
     }
 
@@ -238,7 +246,9 @@ class Ancen_signup_data
 
             $TadDataCenter->set_col('id', $data['id']);
             $data['tdc'] = $TadDataCenter->getData();
-            $data['action'] = Ancen_signup_actions::get($data['action_id']);
+            $data['action'] = Ancen_signup_actions::get($data['action_id'], true);
+            $TadDataCenter->set_col('data_id', $data['id']);
+            $data['tag'] = $TadDataCenter->getData('tag', 0);
 
             if ($_SESSION['api_mode'] or $auto_key) {
                 $data_arr[] = $data;
