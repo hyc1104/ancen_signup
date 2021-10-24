@@ -18,6 +18,7 @@ function xoops_module_install_ancen_signup(XoopsModule $module)
     Utility::mk_dir(XOOPS_ROOT_PATH . "/uploads/ancen_signup/file");
     Utility::mk_dir(XOOPS_ROOT_PATH . "/uploads/ancen_signup/image");
     Utility::mk_dir(XOOPS_ROOT_PATH . "/uploads/ancen_signup/image/.thumbs");
+    $groupid = mk_group("活動報名管理");
 
     return true;
 }
