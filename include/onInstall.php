@@ -19,6 +19,13 @@ function xoops_module_install_ancen_signup(XoopsModule $module)
     Utility::mk_dir(XOOPS_ROOT_PATH . "/uploads/ancen_signup/image");
     Utility::mk_dir(XOOPS_ROOT_PATH . "/uploads/ancen_signup/image/.thumbs");
     $groupid = mk_group("活動報名管理");
+    $perm_handler = xoops_getHandler('groupperm');
+    $perm = $perm_handler->create();
+    $perm->setVar('gperm_groupid', $groupid);
+    $perm->setVar('gperm_itemid', 1);
+    $perm->setVar('gperm_name', $module->dirname()); //一般為模組目錄名稱
+    $perm->setVar('gperm_modid', $module->mid());
+    $perm_handler->insert($perm);
 
     return true;
 }
