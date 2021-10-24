@@ -258,6 +258,9 @@ class Ancen_signup_actions
             $data['detail'] = $myts->displayTarea($data['detail'], 1, 0, 0, 0, 0);
             $data['title'] = $myts->htmlSpecialChars($data['title']);
         }
+        $TadUpFiles = new TadUpFiles("ancen_signup");
+        $TadUpFiles->set_col('action_id', $id);
+        $data['files'] = $TadUpFiles->show_files('upfile');
         return $data;
     }
 

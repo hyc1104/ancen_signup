@@ -12,6 +12,8 @@
     <{$detail}>
 </div>
 
+<{$files}>
+
 <h3 class="my">
         已報名表資料
         <small>

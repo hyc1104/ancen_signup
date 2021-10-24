@@ -15,9 +15,14 @@ $op = Request::getString('op');
 $id = Request::getInt('id');
 $action_id = Request::getInt('action_id');
 $accept = Request::getInt('accept');
+$files_sn = Request::getInt('files_sn');
 
 /*-----------執行動作判斷區----------*/
 switch ($op) {
+    case "tufdl":
+        $TadUpFiles = new TadUpFiles('ancen_signup');
+        $TadUpFiles->add_file_counter($files_sn);
+        exit;
 
     //新增活動表單
     case 'ancen_signup_actions_create':
