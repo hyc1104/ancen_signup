@@ -444,9 +444,7 @@ class Ancen_signup_data
                 $type[] = trim($cols[1]);
             }
         }
-        $head[] = '錄取';
-        $head[] = '報名日期';
-        $head[] = '身份';
+
         $xoopsTpl->assign('head', $head);
         $xoopsTpl->assign('type', $type);
 
@@ -459,6 +457,57 @@ class Ancen_signup_data
         }
         fclose($handle);
         $xoopsTpl->assign('preview_data', $preview_data);
+
+        //加入Token安全機制
+        include_once $GLOBALS['xoops']->path('class/xoopsformloader.php');
+        $token = new \XoopsFormHiddenToken();
+        $token_form = $token->render();
+        $xoopsTpl->assign("token_form", $token_form);
+    }
+
+    //批次匯入CSV資料
+    public static function import_csv($action_id)
+    {
+        global $xoopsDB, $xoopsUser;
+
+        //XOOPS表單安全檢查
+        Utility::xoops_security_check();
+
+        if (!$_SESSION['can_add']) {
+            redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
+        }
+
+        $action_id = (int) $action_id;
+        $uid = (int) $xoopsUser->uid();
+
+        $action = Ancen_signup_actions::get($action_id);
+        $TadDataCenter = new TadDataCenter('ancen_signup');
+        foreach ($_POST['tdc'] as $tdc) {
+            $sql = "insert into `" . $xoopsDB->prefix("ancen_signup_data") . "` (
+            `action_id`,
+            `uid`,
+            `signup_date`,
+            `accept`
+            ) values(
+            '{$action_id}',
+            '{$uid}',
+            now(),
+            '1'
+            )";
+            $xoopsDB->queryF($sql) or Utility::web_error($sql, __FILE__, __LINE__);
+
+            //取得最後新增資料的流水編號
+            $id = $xoopsDB->getInsertId();
+            $TadDataCenter->set_col('id', $id);
+            $TadDataCenter->saveCustomData($tdc);
+
+            $action['signup'] = self::get_all($action_id);
+
+            if (count($action['signup']) > $action['number']) {
+                $TadDataCenter->set_col('data_id', $id);
+                $TadDataCenter->saveCustomData(['tag' => ['候補']]);
+            }
+        }
     }
 
 }

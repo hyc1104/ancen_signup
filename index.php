@@ -111,6 +111,12 @@ switch ($op) {
         Ancen_signup_data::preview_csv($id);
         break;
 
+    //批次匯入CSV資料
+    case 'ancen_signup_data_import_csv':
+        Ancen_signup_data::import_csv($id);
+        redirect_header("{$_SERVER['PHP_SELF']}?id=$id", 3, "成功批次匯入CSV資料!");
+        break;
+
     default:
         if (empty($id)) {
             Ancen_signup_actions::index($xoopsModuleConfig['only_enable']);

@@ -16,21 +16,23 @@
                     <{foreach from=$data key=j item=val}>
                     <{assign var=title value=$head.$j}>
                     <{assign var=input_type value=$type.$j}>
-                        <td>
-                            <{if $input_type=="checkbox"}>
-                            <{assign var=val_arr value='|'|explode:$val}>
-                                <{foreach from=$val_arr item=val}>
-                                    <div class="form-check-inline checkbox-inline">
-                                        <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" name="tdc[<{$i}>][<{$title}>][]" value="<{$val}>" checked>
-                                            <{$val}>
-                                        </label>
-                                    </div>
-                                <{/foreach}>
-                            <{else}>
-                                <input type="text" name="tdc[<{$i}>][<{$title}>]" value="<{$val}>" class="form-control form-control-sm">
-                            <{/if}>
-                        </td>
+                        <{if $title!=''}>
+                            <td>
+                                <{if $input_type=="checkbox"}>
+                                <{assign var=val_arr value='|'|explode:$val}>
+                                    <{foreach from=$val_arr item=val}>
+                                        <div class="form-check-inline checkbox-inline">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" type="checkbox" name="tdc[<{$i}>][<{$title}>][]" value="<{$val}>" checked>
+                                                <{$val}>
+                                            </label>
+                                        </div>
+                                    <{/foreach}>
+                                <{else}>
+                                    <input type="text" name="tdc[<{$i}>][<{$title}>]" value="<{$val}>" class="form-control form-control-sm">
+                                <{/if}>
+                            </td>
+                        <{/if}>
                     <{/foreach}>
                 </tr>
                 <{/if}>
