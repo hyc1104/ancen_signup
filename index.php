@@ -106,6 +106,11 @@ switch ($op) {
         header("location: {$_SERVER['PHP_SELF']}?op=ancen_signup_actions_edit&id=$new_id");
         exit;
 
+    //匯入CSV
+    case 'ancen_signup_data_preview_csv':
+        Ancen_signup_data::preview_csv($id);
+        break;
+
     default:
         if (empty($id)) {
             Ancen_signup_actions::index($xoopsModuleConfig['only_enable']);
