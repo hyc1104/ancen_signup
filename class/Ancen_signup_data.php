@@ -539,8 +539,8 @@ class Ancen_signup_data
         $preview_data = [];
 
         require_once XOOPS_ROOT_PATH . '/modules/tadtools/vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php';
-        $reader = PHPExcel_IOFactory::createReader('Excel2007');
-        $PHPExcel = $reader->load($_FILES['上傳名稱']['tmp_name']); // 檔案名稱
+        $reader = \PHPExcel_IOFactory::createReader('Excel2007');
+        $PHPExcel = $reader->load($_FILES['excel']['tmp_name']); // 檔案名稱
         $sheet = $PHPExcel->getSheet(0); // 讀取第一個工作表(編號從 0 開始)
         $maxCell = $PHPExcel->getActiveSheet()->getHighestRowAndColumn();
         $maxColumn = self::getIndex($maxCell['column']);
@@ -570,5 +570,10 @@ class Ancen_signup_data
         }
 
         return $num;
+    }
+    //批次匯入Excel資料
+    public static function import_excel($action_id)
+    {
+        self::import_csv($action_id);
     }
 }
