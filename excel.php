@@ -93,6 +93,12 @@ $row = 1;
 foreach ($head as $column => $value) {
     $objActSheet->setCellValueByColumnAndRow($column, $row, $value); //直欄從0開始，橫列從1開始
     $objActSheet->getStyleByColumnAndRow($column, $row)->applyFromArray($head_style);
+
+    $len = strlen($value);
+    if (!isset($_SESSION['length'][$column])) {
+        $_SESSION['length'][$column] = $len;
+        $objActSheet->getColumnDimensionByColumn($column)->setWidth($len);
+    }
 }
 
 // 抓出內容
@@ -121,10 +127,15 @@ if ($type == 'signup') {
         foreach ($item as $column => $value) {
             $objActSheet->setCellValueByColumnAndRow($column, $row, $value); //直欄從0開始，橫列從1開始
             $objActSheet->getStyleByColumnAndRow($column, $row)->applyFromArray($content_style);
+            $len = strlen($value);
+            if (!isset($_SESSION['length'][$column]) || $len > $_SESSION['length'][$column]) {
+                $_SESSION['length'][$column] = $len;
+                $objActSheet->getColumnDimensionByColumn($column)->setWidth($len);
+            }
         }
     }
 }
-
+unset($_SESSION['length']);
 //$title = (_CHARSET === 'UTF-8') ? iconv('UTF-8', 'Big5', $title) : $title;
 header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
 header("Content-Disposition: attachment;filename={$title}.xlsx");
