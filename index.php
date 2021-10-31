@@ -117,6 +117,11 @@ switch ($op) {
         redirect_header("{$_SERVER['PHP_SELF']}?id=$id", 3, "成功批次匯入CSV資料!");
         break;
 
+    //匯入Excel
+    case 'ancen_signup_data_preview_excel':
+        Ancen_signup_data::preview_excel($id);
+        break;
+
     default:
         if (empty($id)) {
             Ancen_signup_actions::index($xoopsModuleConfig['only_enable']);

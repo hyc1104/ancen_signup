@@ -108,4 +108,20 @@
 
     </form>
 
+    <form action="index.php" method="post" class="my-4" enctype="multipart/form-data">
+        <div class="input-group">
+            <div class="input-group-prepend input-group-addon">
+                <span class="input-group-text">匯入報名名單( Excel )</span>
+            </div>
+            <input type="file" name="excel" class="form-control" accept=".xlsx">
+            <div class="input-group-append input-group-btn">
+                <input type="hidden" name="id" value="<{$id}>">
+                <input type="hidden" name="op" value="ancen_signup_data_preview_excel">
+                <button type="submit" class="btn btn-primary">匯入Excel</button>
+                <a href="<{$xoops_url}>/modules/ancen_signup/excel.php?id=<{$id}>" class="btn btn-secondary"><i class="fa fa-file-excel-o" aria-hidden="true"></i> 下載 Excel 匯入格式檔</a>
+            </div>
+        </div>
+
+    </form>
+
 <{/if}>
