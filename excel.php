@@ -22,6 +22,54 @@ require_once XOOPS_ROOT_PATH . '/modules/tadtools/vendor/phpoffice/phpexcel/Clas
 require_once XOOPS_ROOT_PATH . '/modules/tadtools/vendor/phpoffice/phpexcel/Classes/PHPExcel/IOFactory.php'; //引入PHPExcel_IOFactory 物件庫
 $objPHPExcel = new PHPExcel(); //實體化Excel
 //----------內容-----------//
+
+//設定預設工作表中一個儲存格的外觀
+$head_style = [
+    'font' => [
+        'bold' => true,
+        'color' => ['rgb' => '000000'],
+        // 'size' => 12,
+        'name' => '新細明體',
+    ],
+    'alignment' => [
+        'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+        'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+    ],
+    'fill' => [
+        'type' => PHPExcel_Style_Fill::FILL_SOLID,
+        'color' => ['rgb' => 'cfcfcf'],
+    ],
+    'borders' => [
+        'allborders' => [
+            'style' => PHPExcel_Style_Border::BORDER_THIN,
+            'color' => ['rgb' => '000000'],
+        ],
+    ],
+];
+
+$content_style = [
+    'font' => [
+        'bold' => false,
+        'color' => ['rgb' => '000000'],
+        // 'size' => 12,
+        'name' => '新細明體',
+    ],
+    'alignment' => [
+        'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+        'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+    ],
+    // 'fill' => [
+    //     'type' => PHPExcel_Style_Fill::FILL_SOLID,
+    //     'color' => ['rgb' => 'ffffff'],
+    // ],
+    'borders' => [
+        'allborders' => [
+            'style' => PHPExcel_Style_Border::BORDER_THIN,
+            'color' => ['rgb' => '000000'],
+        ],
+    ],
+];
+
 $title = "{$action['title']}報名名單";
 $objPHPExcel->setActiveSheetIndex(0); //設定預設顯示的工作表
 $objActSheet = $objPHPExcel->getActiveSheet(); //指定預設工作表為 $objActSheet
@@ -44,7 +92,7 @@ $head[] = '身份';
 $row = 1;
 foreach ($head as $column => $value) {
     $objActSheet->setCellValueByColumnAndRow($column, $row, $value); //直欄從0開始，橫列從1開始
-
+    $objActSheet->getStyleByColumnAndRow($column, $row)->applyFromArray($head_style);
 }
 
 // 抓出內容
@@ -72,7 +120,7 @@ if ($type == 'signup') {
         $row++;
         foreach ($item as $column => $value) {
             $objActSheet->setCellValueByColumnAndRow($column, $row, $value); //直欄從0開始，橫列從1開始
-
+            $objActSheet->getStyleByColumnAndRow($column, $row)->applyFromArray($content_style);
         }
     }
 }
