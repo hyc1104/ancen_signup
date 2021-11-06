@@ -437,16 +437,7 @@ class Ancen_signup_data
         $xoopsTpl->assign('action', $action);
 
         //製作標題
-        $head_row = explode("\n", $action['setup']);
-        $head = $type = [];
-        foreach ($head_row as $head_data) {
-            $cols = explode(',', $head_data);
-            if (strpos($cols[0], '#') === false) {
-                $head[] = str_replace('*', '', trim($cols[0]));
-                $type[] = trim($cols[1]);
-            }
-        }
-
+        list($head, $type) = self::get_head($action, true, true);
         $xoopsTpl->assign('head', $head);
         $xoopsTpl->assign('type', $type);
 
@@ -524,15 +515,7 @@ class Ancen_signup_data
         $xoopsTpl->assign('action', $action);
 
         //製作標題
-        $head_row = explode("\n", $action['setup']);
-        $head = $type = [];
-        foreach ($head_row as $head_data) {
-            $cols = explode(',', $head_data);
-            if (strpos($cols[0], '#') === false) {
-                $head[] = str_replace('*', '', trim($cols[0]));
-                $type[] = trim($cols[1]);
-            }
-        }
+        list($head, $type) = self::get_head($action, true, true);
 
         $xoopsTpl->assign('head', $head);
         $xoopsTpl->assign('type', $type);
@@ -577,5 +560,31 @@ class Ancen_signup_data
     public static function import_excel($action_id)
     {
         self::import_csv($action_id);
+    }
+
+    //取得報名的標題欄
+    public static function get_head($action, $return_type = false, $only_tdc = false)
+    {
+        $head_row = explode("\n", $action['setup']);
+        $head = $type = [];
+        foreach ($head_row as $head_data) {
+            $cols = explode(',', $head_data);
+            if (strpos($cols[0], '#') === false) {
+                $head[] = str_replace('*', '', trim($cols[0]));
+                $type[] = trim($cols[1]);
+            }
+        }
+
+        if (!$only_tdc) {
+            $head[] = '錄取';
+            $head[] = '報名日期';
+            $head[] = '身份';
+        }
+        if ($return_type) {
+            return [$head, $type];
+
+        } else {
+            return $head;
+        }
     }
 }

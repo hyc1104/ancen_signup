@@ -20,14 +20,7 @@ if ($action['uid'] != $xoopsUser->uid()) {
 }
 
 $csv = [];
-
-$TadDataCenter = new TadDataCenter('ancen_signup');
-$head = $TadDataCenter->getAllColItems($action['setup']);
-
-$head[] = '錄取';
-$head[] = '報名日期';
-$head[] = '身份';
-
+$head = Ancen_signup_data::get_head($action);
 $csv[] = implode(',', $head);
 
 if ($type == 'signup') {

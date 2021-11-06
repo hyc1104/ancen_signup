@@ -22,18 +22,7 @@ $title = $action['title'];
 $html[] = "<h1>{$title}報名名單</h1>";
 $html[] = '<table border="1" cellpadding="3">';
 
-$head_row = explode("\n", $action['setup']);
-$head = [];
-foreach ($head_row as $head_data) {
-    $cols = explode(',', $head_data);
-    if (strpos($cols[0], '#') === false) {
-        $head[] = str_replace('*', '', trim($cols[0]));
-    }
-}
-
-$head[] = '錄取';
-$head[] = '報名日期';
-$head[] = '身份';
+$head = Ancen_signup_data::get_head($action);
 
 $html[] = "<tr><th>" . implode("</th><th>", $head) . "</th></tr>";
 
