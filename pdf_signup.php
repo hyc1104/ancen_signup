@@ -21,15 +21,15 @@ $pdf->setPrintHeader(false); //不要頁首
 $pdf->setPrintFooter(false); //不要頁尾
 $pdf->SetAutoPageBreak(true, PDF_MARGIN_BOTTOM); //設定自動分頁
 $pdf->setFontSubsetting(true); //產生字型子集（有用到的字才放到文件中）
-$pdf->SetFont('droidsansfallback', '', 11, '', true); //設定字型
+$pdf->SetFont('twkai98_1', '', 11, '', true); //設定字型
 $pdf->SetMargins(15, 15); //設定頁面邊界，
 $pdf->AddPage(); //新增頁面，一定要有，否則內容出不來
 
 $title = "{$action['title']}簽到表";
-$pdf->SetFont('droidsansfallback', 'B', 24, '', true); //設定字型
+$pdf->SetFont('twkai98_1', 'B', 24, '', true); //設定字型
 $pdf->MultiCell(190, 0, $title, 0, "C");
 
-$pdf->SetFont('droidsansfallback', '', 16, '', true); //設定字型
+$pdf->SetFont('twkai98_1', '', 16, '', true); //設定字型
 $pdf->Cell(40, 20, '活動日期', 0, 0);
 $pdf->Cell(150, 20, $action['action_date'], 0, 1);
 
