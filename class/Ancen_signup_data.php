@@ -9,6 +9,7 @@ use XoopsModules\Tadtools\BootstrapTable;
 use XoopsModules\Tadtools\FormValidator;
 use XoopsModules\Tadtools\SweetAlert;
 use XoopsModules\Tadtools\TadDataCenter;
+use XoopsModules\Tadtools\Tmt;
 use XoopsModules\Tadtools\Utility;
 
 class Ancen_signup_data
@@ -586,5 +587,21 @@ class Ancen_signup_data
         } else {
             return $head;
         }
+    }
+
+    //進行PDF匯出設定
+    public static function pdf_setup($action_id)
+    {
+        global $xoopsTpl;
+
+        $action = Ancen_signup_actions::get($action_id);
+        $xoopsTpl->assign('action', $action);
+
+        //製作標題
+        $from_arr = self::get_head($action);
+        $to_arr = $hidden_arr = [];
+
+        $tmt_box = Tmt::render('pdf_setup_col', $from_arr, $to_arr, $hidden_arr, true, false);
+        $xoopsTpl->assign('tmt_box', $tmt_box);
     }
 }

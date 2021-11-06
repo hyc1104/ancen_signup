@@ -128,6 +128,11 @@ switch ($op) {
         redirect_header("{$_SERVER['PHP_SELF']}?id=$id", 3, "成功批次匯入Excel資料!");
         break;
 
+    //進行PDF匯出設定
+    case 'ancen_signup_data_pdf_setup':
+        Ancen_signup_data::pdf_setup($id);
+        break;
+
     default:
         if (empty($id)) {
             Ancen_signup_actions::index($xoopsModuleConfig['only_enable']);
