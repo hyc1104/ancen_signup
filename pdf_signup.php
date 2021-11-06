@@ -2,6 +2,7 @@
 use Xmf\Request;
 use XoopsModules\Ancen_signup\Ancen_signup_actions;
 use XoopsModules\Ancen_signup\Ancen_signup_data;
+use XoopsModules\Tadtools\TadDataCenter;
 use XoopsModules\Tadtools\Utility;
 /*-----------引入檔案區--------------*/
 require_once __DIR__ . '/header.php';
@@ -32,22 +33,33 @@ $pdf->SetFont('droidsansfallback', '', 16, '', true); //設定字型
 $pdf->Cell(40, 20, '活動日期', 0, 0);
 $pdf->Cell(150, 20, $action['action_date'], 0, 1);
 
-//$pdf->Cell($w, $h = 0, $txt = '', $border = 0, $ln = 0, $align = '', $fill = 0, $link = nil, $stretch = 0, $ignore_min_height = false, $calign = 'T', $valign = 'M');
+$TadDataCenter = new TadDataCenter('ancen_signup');
+$TadDataCenter->set_col('pdf_setup_id', $id);
+$pdf_setup_col = $TadDataCenter->getData('pdf_setup_col', 0);
+$col_arr = explode(',', $pdf_setup_col);
+
+$col_count = count($col_arr);
+if (empty($col_count)) {
+    $col_count = 1;
+}
 
 $h = 15;
+$w = 120 / $col_count;
 $maxh = 15;
 $pdf->Cell(15, $h, '編號', 1, 0, 'C');
-$pdf->Cell(40, $h, '姓名', 1, 0, 'C');
-$pdf->Cell(35, $h, '飲食', 1, 0, 'C');
-$pdf->Cell(90, $h, '簽名', 1, 1, 'C');
+foreach ($col_arr as $col_name) {
+    $pdf->Cell($w, $h, $col_name, 1, 0, 'C');
+}
+$pdf->Cell(45, $h, '簽名', 1, 1, 'C');
 
 $signup = Ancen_signup_data::get_all($action['id'], null, true, true);
 $i = 1;
 foreach ($signup as $signup_data) {
     $pdf->MultiCell(15, $h, $i, 1, 'C', false, 0, '', '', true, 0, false, true, $maxh, 'M');
-    $pdf->MultiCell(40, $h, implode($signup_data['tdc']['姓名']), 1, 'C', false, 0, '', '', true, 0, false, true, $maxh, 'M');
-    $pdf->MultiCell(35, $h, implode($signup_data['tdc']['飲食']), 1, 'C', false, 0, '', '', true, 0, false, true, $maxh, 'M');
-    $pdf->MultiCell(90, $h, '', 1, 'C', false, 1, '', '', true, 0, false, true, $maxh, 'M');
+    foreach ($col_arr as $col_name) {
+        $pdf->MultiCell($w, $h, implode($signup_data['tdc'][$col_name]), 1, 'C', false, 0, '', '', true, 0, false, true, $maxh, 'M');
+    }
+    $pdf->MultiCell(45, $h, '', 1, 'C', false, 1, '', '', true, 0, false, true, $maxh, 'M');
     $i++;
 }
 
