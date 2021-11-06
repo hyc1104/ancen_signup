@@ -52,4 +52,4 @@ foreach ($signup as $signup_data) {
 }
 
 //PDF內容設定
-$pdf->Output("{$title}.pdf", 'I');
+$pdf->Output("{$title}.pdf", 'D');

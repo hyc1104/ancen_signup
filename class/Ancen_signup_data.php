@@ -597,11 +597,26 @@ class Ancen_signup_data
         $action = Ancen_signup_actions::get($action_id);
         $xoopsTpl->assign('action', $action);
 
+        $TadDataCenter = new TadDataCenter('ancen_signup');
+        $TadDataCenter->set_col('pdf_setup_id', $action_id);
+        $pdf_setup_col = $TadDataCenter->getData('pdf_setup_col', 0);
+        $to_arr = explode(',', $pdf_setup_col);
+
         //製作標題
-        $from_arr = self::get_head($action);
-        $to_arr = $hidden_arr = [];
+        $head_arr = self::get_head($action);
+        $from_arr = array_diff($head_arr, $to_arr);
+
+        $hidden_arr = [];
 
         $tmt_box = Tmt::render('pdf_setup_col', $from_arr, $to_arr, $hidden_arr, true, false);
         $xoopsTpl->assign('tmt_box', $tmt_box);
+    }
+
+    //儲存PDF匯出設定
+    public static function pdf_setup_save($action_id, $pdf_setup_col = '')
+    {
+        $TadDataCenter = new TadDataCenter('ancen_signup');
+        $TadDataCenter->set_col('pdf_setup_id', $action_id);
+        $TadDataCenter->saveCustomData(['pdf_setup_col' => [$pdf_setup_col]]);
     }
 }
