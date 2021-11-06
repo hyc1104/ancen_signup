@@ -11,7 +11,6 @@ if (!$_SESSION['can_add']) {
 }
 
 $id = Request::getInt('id');
-$type = Request::getString('type');
 
 $action = Ancen_signup_actions::get($id);
 

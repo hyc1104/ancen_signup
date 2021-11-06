@@ -102,6 +102,10 @@
         <a href="<{$xoops_url}>/modules/ancen_signup/pdf.php?id=<{$id}>" class="btn btn-danger"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> 匯出報名名單 PDF</a>
     </div>
 
+    <div class="bar">
+        <a href="<{$xoops_url}>/modules/ancen_signup/pdf_signup.php?id=<{$id}>" class="btn btn-danger"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> 匯出簽到表 PDF</a>
+    </div>
+
     <form action="index.php" method="post" class="my-4" enctype="multipart/form-data">
         <div class="input-group">
             <div class="input-group-prepend input-group-addon">
