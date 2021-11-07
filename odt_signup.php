@@ -25,10 +25,10 @@ $left_paraStyle = ['align' => 'left', 'valign' => 'center'];
 $right_paraStyle = ['align' => 'right', 'valign' => 'center'];
 //產生內容
 
-$filename = 'word';
+$filename = 'odt';
 //$filename = iconv("UTF-8", "Big5", $filename);
-$objWriter = IOFactory::createWriter($phpWord, 'Word2007');
-header('Content-Type: application/vnd.ms-word');
-header("Content-Disposition: attachment;filename={$filename}.docx");
+$objWriter = IOFactory::createWriter($phpWord, 'ODText');
+header('Content-Type: application/vnd.oasis.opendocument.text');
+header("Content-Disposition: attachment;filename={$filename}.odt");
 header('Cache-Control: max-age=0');
 $objWriter->save('php://output');

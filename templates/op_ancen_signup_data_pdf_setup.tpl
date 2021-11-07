@@ -5,8 +5,14 @@
     <input type="hidden" name="op" value="ancen_signup_data_pdf_setup_save">
     <input type="hidden" name="action_id" value="<{$action.id}>">
     <div class="bar">
-        <button type="submit" class="btn btn-primary">
-            <i class="fa fa-save" aria-hidden="true"></i> 儲存並下載【<{$action.title}>】簽到表
+        <button type="submit" class="btn btn-danger" name="file" value="pdf">
+            <i class="fa fa-file-pdf-o" aria-hidden="true"></i> 下載PDF簽到表
+        </button>
+        <button type="submit" class="btn btn-primary" name="file" value="word">
+            <i class="fa fa-file-word-o" aria-hidden="true"></i> 下載Word簽到表
+        </button>
+        <button type="submit" class="btn btn-success" name="file" value="odt">
+            <i class="fa fa-file-word-o" aria-hidden="true"></i> 下載ODT簽到表
         </button>
     </div>
 </form>
