@@ -36,10 +36,10 @@
     <thead>
         <tr>
             <{foreach from=$signup.0.tdc key=col_name item=user name=tdc}>
-                <th data-sortable="true"><{$col_name}></th>
+                <th data-sortable="true" nowrap class="c"><{$col_name}></th>
             <{/foreach}>
-            <th data-sortable="true">錄取</th>
-            <th data-sortable="true">報名日期</th>
+            <th nowrap class="c" data-sortable="true">錄取</th>
+            <th nowrap class="c" data-sortable="true">報名日期</th>
 
         </tr>
     </thead>
@@ -95,15 +95,17 @@
 
 <{if $smarty.session.can_add && $uid == $now_uid}>
     <div class="bar">
-        <a href="javascript:del_action('<{$id}>')" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i> 刪除活動</a>
-        <a href="<{$xoops_url}>/modules/ancen_signup/index.php?op=ancen_signup_actions_edit&id=<{$id}>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> 編輯活動</a>
-        <a href="<{$xoops_url}>/modules/ancen_signup/csv.php?id=<{$id}>&type=signup" class="btn btn-primary"><i class="fa fa-text-o" aria-hidden="true"></i> 匯出報名名單 CSV</a>
-        <a href="<{$xoops_url}>/modules/ancen_signup/excel.php?id=<{$id}>&type=signup" class="btn btn-success"><i class="fa fa-file-excel-o" aria-hidden="true"></i> 匯出報名名單 Excel</a>
-        <a href="<{$xoops_url}>/modules/ancen_signup/pdf.php?id=<{$id}>" class="btn btn-danger"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> 匯出報名名單 PDF</a>
-    </div>
-
-    <div class="bar">
+        <a href="javascript:del_action('<{$id}>')" class="btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i> 刪除</a>
+        <a href="<{$xoops_url}>/modules/ancen_signup/index.php?op=ancen_signup_actions_edit&id=<{$id}>" class="btn btn-warning"><i class="fa fa-pencil" aria-hidden="true"></i> 編輯</a>
         <a href="<{$xoops_url}>/modules/ancen_signup/index.php?op=ancen_signup_data_pdf_setup&id=<{$id}>" class="btn btn-info"><i class="fa fa-save" aria-hidden="true"></i> 產生簽到表</a>
+        <div class="btn-group" role="group" aria-label="Basic example">
+            <a href="#" class="btn btn-secondary"><i class="fa fa-file-text-o" aria-hidden="true"></i> 匯出報名名單：</a>
+            <a href="<{$xoops_url}>/modules/ancen_signup/html.php?id=<{$id}>" class="btn btn-primary"><i class="fa fa-html5" aria-hidden="true"></i> HTML</a>
+            <a href="<{$xoops_url}>/modules/ancen_signup/csv.php?id=<{$id}>&type=signup" class="btn btn-warning"><i class="fa fa-file-text-o" aria-hidden="true"></i> CSV</a>
+            <a href="<{$xoops_url}>/modules/ancen_signup/excel.php?id=<{$id}>&type=signup" class="btn btn-success"><i class="fa fa-file-excel-o" aria-hidden="true"></i> Excel</a>
+            <a href="<{$xoops_url}>/modules/ancen_signup/pdf.php?id=<{$id}>" class="btn btn-danger"><i class="fa fa-file-pdf-o" aria-hidden="true"></i> PDF</a>
+        </div>
+
     </div>
 
     <form action="index.php" method="post" class="my-4" enctype="multipart/form-data">
