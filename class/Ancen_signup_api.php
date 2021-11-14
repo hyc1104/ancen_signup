@@ -27,15 +27,15 @@ class Ancen_signup_api extends SimpleRest
             $this->groups = $User['groups'];
             $this->user = $User['user'];
 
-            //判斷是否對該模組有管理權限 $_SESSION['模組目錄_adm']
+            //判斷是否對該模組有管理權限 $_SESSION['ancen_signup_adm']
             if (!isset($this->user['ancen_signup_adm'])) {
                 $this->user['ancen_signup_adm'] = $_SESSION['ancen_signup_adm'] = ($this->uid) ? $this->isAdmin('ancen_signup') : false;
             }
 
-            // 判斷有無XXX的權限
-            // if (!isset($this->user['權限名'])) {
-            //     $_SESSION['權限名'] = $this->user['權限名'] = $this->powerChk('模組目錄', 權限編號);
-            // }
+            // 判斷有無開設活動的權限
+            if (!isset($this->user['can_add'])) {
+                $_SESSION['can_add'] = $this->user['can_add'] = $this->powerChk('ancen_signup', '1');
+            }
 
         }
     }
@@ -72,7 +72,8 @@ class Ancen_signup_api extends SimpleRest
     // 取得活動所有報名資料
     public function ancen_signup_data_index($action_id)
     {
-        $data = $this->token ? Ancen_signup_data::get_all($action_id) : [];
+        $action = Ancen_signup_actions::get($action_id);
+        $data = ($this->user['ancen_signup_adm'] || ($this->user['can_add'] && $action['uid'] == $this->uid)) ? Ancen_signup_data::get_all($action_id) : [];
         return $this->encodeJson($data);
     }
 
