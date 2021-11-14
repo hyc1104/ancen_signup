@@ -2,9 +2,9 @@
 $modversion = [];
 
 //---模組基本資訊---//
-$modversion['name'] = '活動報名';
+$modversion['name'] = _MI_ANCEN_SIGNUP_NAME;
 $modversion['version'] = 1.00;
-$modversion['description'] = '活動報名模組';
+$modversion['description'] = _MI_ANCEN_SIGNUP_DESCRIPTION;
 $modversion['author'] = 'Ancen';
 $modversion['credits'] = '';
 $modversion['help'] = 'page=help';
@@ -19,7 +19,7 @@ $modversion['module_website_url'] = 'https://github.com/hyc1104/ancen_signup';
 $modversion['module_website_name'] = 'Ancen Signup Github';
 $modversion['module_status'] = 'release';
 $modversion['author_website_url'] = 'http://www.clhyc.tw';
-$modversion['author_website_name'] = 'CLHYC';
+$modversion['author_website_name'] = _MI_ANCEN_SIGNUP_AUTHOR_WEBSITE_NAME;
 $modversion['min_php'] = 5.4;
 $modversion['min_xoops'] = '2.5';
 
@@ -53,8 +53,8 @@ $modversion['onUpdate'] = "include/onUpdate.php";
 $modversion['onUninstall'] = "include/onUninstall.php";
 
 //---樣板設定---//
-$modversion['templates'][] = ['file' => 'ancen_signup_admin.tpl', 'description' => '後台共同樣板'];
-$modversion['templates'][] = ['file' => 'ancen_signup_index.tpl', 'description' => '前台共同樣板'];
+$modversion['templates'][] = ['file' => 'ancen_signup_admin.tpl', 'description' => _MI_ANCEN_SIGNUP_TEMPLATES_ADMIN];
+$modversion['templates'][] = ['file' => 'ancen_signup_index.tpl', 'description' => _MI_ANCEN_SIGNUP_TEMPLATES_INDEX];
 
 //---搜尋---//
 $modversion['hasSearch'] = 1;
@@ -74,8 +74,8 @@ $modversion['search'] = ['file' => 'include/search.php', 'func' => 'ancen_signup
 //---區塊設定---//
 $modversion['blocks'][] = [
     'file' => 'action_list.php',
-    'name' => '可報名活動一覽',
-    'description' => '列出所有可報名的活動',
+    'name' => _MI_ANCEN_SIGNUP_ACTION_LIST_NAME,
+    'description' => _MI_ANCEN_SIGNUP_ACTION_LIST_DESCRIPTION,
     'show_func' => 'action_list',
     'template' => 'action_list.tpl',
     'edit_func' => 'action_list_edit',
@@ -84,8 +84,8 @@ $modversion['blocks'][] = [
 
 $modversion['blocks'][] = [
     'file' => 'action_signup.php',
-    'name' => '活動報名焦點',
-    'description' => '可選擇某一個活動讓使用者報名',
+    'name' => _MI_ANCEN_SIGNUP_ACTION_ACTION_SIGNUP_NAME,
+    'description' => _MI_ANCEN_SIGNUP_ACTION_ACTION_SIGNUP_DESCRIPTION,
     'show_func' => 'action_signup',
     'template' => 'action_signup.tpl',
     'edit_func' => 'action_signup_edit',
