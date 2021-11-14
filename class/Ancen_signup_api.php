@@ -1,6 +1,7 @@
 <?php
 namespace XoopsModules\Ancen_signup;
 
+use XoopsModules\Ancen_signup\Ancen_signup_actions;
 use XoopsModules\Tadtools\SimpleRest;
 
 require dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
@@ -58,6 +59,13 @@ class Ancen_signup_api extends SimpleRest
 
         $jsonResponse = json_encode($responseData, 256);
         return $jsonResponse;
+    }
+
+    // 取得活動資料
+    public function ancen_signup_actions_index($only_enable = true)
+    {
+        $actions = Ancen_signup_actions::get_all($only_enable);
+        return $this->encodeJson($actions);
     }
 
 }

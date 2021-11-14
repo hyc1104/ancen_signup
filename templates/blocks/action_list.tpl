@@ -5,10 +5,10 @@
             <small>
                 名額 <{$action.number}>
                 <{if $action.candidate}><span data-toggle="tooltip" title="可候補人數">(<{$action.candidate}>)</span><{/if}>
-                人，已報名 <{$action.signup|@count}> 人
+                人，已報名 <{$action.signup_count}> 人
             </small>
             <div>
-                <{if $action.enable && ($action.number + $action.candidate) > $action.signup|@count && $action.end_date|strtotime >= $smarty.now}>
+                <{if $action.enable && ($action.number + $action.candidate) > $action.signup_count && $action.end_date|strtotime >= $smarty.now}>
                     <i class="fa fa-check text-success" data-toggle="tooltip" title="報名中" aria-hidden="true"></i>
                 <{else}>
                     <i class="fa fa-times text-danger" data-toggle="tooltip" title="無法報名" aria-hidden="true"></i>

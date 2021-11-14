@@ -6,7 +6,7 @@ use XoopsModules\Tadtools\Utility;
 function action_signup($options)
 {
     $block = Ancen_signup_actions::get($options[0], true);
-    $block['signup'] = Ancen_signup_data::get_all($options[0], null, true);
+    $block['signup_count'] = count(Ancen_signup_data::get_all($options[0], null, true));
     return $block;
 }
 

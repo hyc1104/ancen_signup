@@ -23,7 +23,7 @@ $content = "
         <div><i class='fa fa-calculator' aria-hidden='true'></i> 活動日期：{$action['action_date']}</>
         <div><i class='fa fa-calendar-check-o' aria-hidden='true'></i> 報名截止：{$action['end_date']}</div>
         <div>
-            <i class='fa fa-users' aria-hidden='true'></i> 報名狀況： " . count($action['signup']) . " / {$action['number']}
+            <i class='fa fa-users' aria-hidden='true'></i> 報名狀況： " . $action['signup_count'] . " / {$action['number']}
             <span data-toggle='tooltip' title='可候補人數'>({$action['candidate']})</span>
         </div>
     </small>

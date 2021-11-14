@@ -22,7 +22,7 @@ $templateProcessor->setValue('action_date', $action['action_date']);
 $templateProcessor->setValue('end_date', $action['end_date']);
 $templateProcessor->setValue('number', $action['number']);
 $templateProcessor->setValue('candidate', $action['candidate']);
-$templateProcessor->setValue('signup', count($action['signup']));
+$templateProcessor->setValue('signup', $action['signup_count']);
 $templateProcessor->setValue('url', XOOPS_URL . "/modules/ancen_signup/index.php?op=ancen_signup_data_create&amp;action_id={$action['id']}");
 
 $signup = Ancen_signup_data::get_all($action['id']);

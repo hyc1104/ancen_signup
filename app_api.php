@@ -12,6 +12,11 @@ $api = new Ancen_signup_api($token);
 
 switch ($op) {
 
+    // 取得活動資料
+    case 'ancen_signup_actions_index':
+        echo $api->ancen_signup_actions_index($xoopsModuleConfig['only_enable']);
+        break;
+
     default:
         echo $api->user();
         break;
