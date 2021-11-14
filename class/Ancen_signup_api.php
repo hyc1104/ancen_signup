@@ -2,6 +2,7 @@
 namespace XoopsModules\Ancen_signup;
 
 use XoopsModules\Ancen_signup\Ancen_signup_actions;
+use XoopsModules\Ancen_signup\Ancen_signup_data;
 use XoopsModules\Tadtools\SimpleRest;
 
 require dirname(dirname(dirname(__DIR__))) . '/mainfile.php';
@@ -66,6 +67,13 @@ class Ancen_signup_api extends SimpleRest
     {
         $actions = Ancen_signup_actions::get_all($only_enable);
         return $this->encodeJson($actions);
+    }
+
+    // 取得活動所有報名資料
+    public function ancen_signup_data_index($action_id)
+    {
+        $data = $this->token ? Ancen_signup_data::get_all($action_id) : [];
+        return $this->encodeJson($data);
     }
 
 }
