@@ -8,7 +8,7 @@ require_once __DIR__ . '/header.php';
 require_once XOOPS_ROOT_PATH . '/modules/tadtools/vendor/autoload.php';
 
 if (!$_SESSION['can_add']) {
-    redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
+    redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
 }
 
 $id = Request::getInt('id');
@@ -38,11 +38,11 @@ foreach ($signup as $id => $signup_data) {
     $data = implode('<w:br/>', $item);
 
     if ($signup_data['accept'] === '1') {
-        $accept = '錄取';
+        $accept = _MD_ANCEN_SIGNUP_ACCEPT;
     } elseif ($signup_data['accept'] === '0') {
-        $accept = '未錄取';
+        $accept = _MD_ANCEN_SIGNUP_NOT_ACCEPT;
     } else {
-        $accept = '尚未設定';
+        $accept = _MD_ANCEN_SIGNUP_ACCEPT_NOT_YET;
     }
 
     $templateProcessor->setValue("id#{$i}", $id);
@@ -52,6 +52,6 @@ foreach ($signup as $id => $signup_data) {
 }
 
 header('Content-Type: application/vnd.ms-word');
-header("Content-Disposition: attachment;filename={$action['title']}報名名單.docx");
+header("Content-Disposition: attachment;filename={$action['title']}" . _MD_ANCEN_SIGNUP_APPLY_LIST . ".docx");
 header('Cache-Control: max-age=0');
 $templateProcessor->saveAs('php://output');

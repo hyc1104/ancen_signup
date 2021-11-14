@@ -1,2 +1,48 @@
 <?php
 xoops_loadLanguage('main', 'tadtools');
+define('_MD_ANCEN_SIGNUP_ID', '編號');
+define('_MD_ANCEN_SIGNUP_ACTION_DATE', '活動日期');
+define('_MD_ANCEN_SIGNUP_END_DATE', '報名截止');
+define('_MD_ANCEN_SIGNUP_STATUS', '報名狀況');
+define('_MD_ANCEN_SIGNUP_CANDIDATE_QUOTA', '可候補人數');
+define('_MD_ANCEN_SIGNUP_ACCEPT', '錄取');
+define('_MD_ANCEN_SIGNUP_NOT_ACCEPT', '未錄取');
+define('_MD_ANCEN_SIGNUP_ACCEPT_NOT_YET', '尚未設定');
+define('_MD_ANCEN_SIGNUP_APPLY_DATE', '報名日期');
+define('_MD_ANCEN_SIGNUP_IDENTITY', '身份');
+define('_MD_ANCEN_SIGNUP_ADMIN', '活動報名管理');
+define('_MD_ANCEN_SIGNUP_APPLY_LIST', '報名名單');
+define('_MD_ANCEN_SIGNUP_APPLY_NOW', '立即報名');
+define('_MD_ANCEN_SIGNUP_DELETE_SUCCESS', '成功刪除活動!');
+define('_MD_ANCEN_SIGNUP_APPLY_SUCCESS', '成功報名活動');
+define('_MD_ANCEN_SIGNUP_APPLY_UPDATE_SUCCESS', '成功修改報名資料');
+define('_MD_ANCEN_SIGNUP_APPLY_DELETE_SUCCESS', '成功刪除報名資料');
+define('_MD_ANCEN_SIGNUP_ACCEPT_SUCCESS', '成功設定錄取狀態');
+define('_MD_ANCEN_SIGNUP_IMPORT_SUCCESS', '成功批次匯入資料');
+define('_MD_ANCEN_SIGNUP_MY_RECORD', '我的報名紀錄');
+define('_MD_ANCEN_SIGNUP_SIGNIN_TABLE', '簽到表');
+define('_MD_ANCEN_SIGNUP_SIGNIN', '簽名');
+// class\Ancen_signup_data.php
+define('_MD_ANCEN_SIGNUP_CANNOT_BE_MODIFIED', '查無報名資料，無法修改');
+define('_MD_ANCEN_SIGNUP_END', '已報名截止，無法再進行報名或修改報名');
+define('_MD_ANCEN_SIGNUP_CLOSED', '該報名已關閉，無法再進行報名或修改報名');
+define('_MD_ANCEN_SIGNUP_FULL', '人數已滿，無法再進行報名');
+define('_MD_ANCEN_SIGNUP_CANDIDATE', '候補');
+define('_MD_ANCEN_SIGNUP_CANT_WATCH', '查無報名資料，無法觀看');
+define('_MD_ANCEN_SIGNUP_NO_TITLE', '無標題');
+define('_MD_ANCEN_SIGNUP_NO_CONTENT', '無內容');
+define('_MD_ANCEN_SIGNUP_UNABLE_TO_SEND', '無編號，無法寄送通知信');
+define('_MD_ANCEN_SIGNUP_DESTROY_TITLE', '【%s】取消報名通知');
+define('_MD_ANCEN_SIGNUP_DESTROY_HEAD', '<p>您於【%s】報名了【%s】活動已於%s 由 %s取消報名。</p>');
+define('_MD_ANCEN_SIGNUP_DESTROY_FOOT', '欲重新報名，請連至 ');
+define('_MD_ANCEN_SIGNUP_STORE_TITLE', '【%s】報名完成通知');
+define('_MD_ANCEN_SIGNUP_STORE_HEAD', '<p>您於【%s】報名【%s】活動已於%s 由 %s報名完成。</p>');
+define('_MD_ANCEN_SIGNUP_FOOT', '完整詳請，請連至 ');
+define('_MD_ANCEN_SIGNUP_UPDATE_TITLE', '【%s】修改報名資料通知');
+define('_MD_ANCEN_SIGNUP_UPDATE_HEAD', '<p>您於【%s】報名【%s】活動已於%s 由 %s修改報名資料如下：</p>');
+define('_MD_ANCEN_SIGNUP_ACCEPT_TITLE', '【%s】報名錄取狀態通知');
+define('_MD_ANCEN_SIGNUP_ACCEPT_HEAD1', '<p>您於【%s】報名【%s】活動經審核為【<h2 style="color:blue">錄取</h2>】，您的報名資料如下：</p>');
+define('_MD_ANCEN_SIGNUP_ACCEPT_HEAD0', '<p>您於【%s】報名【%s}】活動經審核為【<span style="color:red;">未錄取</span>】，您的報名資料如下：</p>');
+
+define('_MD_ANCEN_SIGNUP_SENDING_FAILURE', '通知信寄送失敗');
+define('_MD_ANCEN_SIGNUP_UNABLE_TO_OPEN', '無法開啟');

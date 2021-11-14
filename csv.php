@@ -7,7 +7,7 @@ use XoopsModules\Tadtools\TadDataCenter;
 require_once __DIR__ . '/header.php';
 
 if (!$_SESSION['can_add']) {
-    redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
+    redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
 }
 
 $id = Request::getInt('id');
@@ -16,7 +16,7 @@ $type = Request::getString('type');
 $action = Ancen_signup_actions::get($id);
 
 if ($action['uid'] != $xoopsUser->uid()) {
-    redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
+    redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
 }
 
 $csv = [];
@@ -33,11 +33,11 @@ if ($type == 'signup') {
         }
 
         if ($signup_data['accept'] === '1') {
-            $item[] = '錄取';
+            $item[] = _MD_ANCEN_SIGNUP_ACCEPT;
         } elseif ($signup_data['accept'] === '0') {
-            $item[] = '未錄取';
+            $item[] = _MD_ANCEN_SIGNUP_NOT_ACCEPT;
         } else {
-            $item[] = '尚未設定';
+            $item[] = _MD_ANCEN_SIGNUP_ACCEPT_NOT_YET;
         }
 
         $item[] = $signup_data['signup_date'];
@@ -53,7 +53,7 @@ $content = implode("\n", $csv);
 $content = mb_convert_encoding($content, 'Big5');
 
 header("Content-type: text/csv");
-header("Content-Disposition: attachment; filename={$action['title']}報名名單.csv");
+header("Content-Disposition: attachment; filename={$action['title']}" . _MD_ANCEN_SIGNUP_APPLY_LIST . ".csv");
 
 echo $content;
 

@@ -23,7 +23,7 @@ function xoops_module_install_ancen_signup(XoopsModule $module)
     Utility::mk_dir(XOOPS_ROOT_PATH . "/uploads/ancen_signup/file");
     Utility::mk_dir(XOOPS_ROOT_PATH . "/uploads/ancen_signup/image");
     Utility::mk_dir(XOOPS_ROOT_PATH . "/uploads/ancen_signup/image/.thumbs");
-    $groupid = Update::mk_group("活動報名管理");
+    $groupid = Update::mk_group(_MD_ANCEN_SIGNUP_ADMIN);
     $perm_handler = xoops_getHandler('groupperm');
     $perm = $perm_handler->create();
     $perm->setVar('gperm_groupid', $groupid);

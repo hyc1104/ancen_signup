@@ -7,7 +7,7 @@ use XoopsModules\Ancen_signup\Ancen_signup_data;
 require_once __DIR__ . '/header.php';
 
 if (!$_SESSION['can_add']) {
-    redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
+    redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
 }
 
 $id = Request::getInt('id');
@@ -15,11 +15,11 @@ $id = Request::getInt('id');
 $action = Ancen_signup_actions::get($id);
 
 if ($action['uid'] != $xoopsUser->uid()) {
-    redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
+    redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
 }
 
 $title = $action['title'];
-$html[] = "<h1>{$title}報名名單</h1>";
+$html[] = "<h1>{$title}" . _MD_ANCEN_SIGNUP_APPLY_LIST . "</h1>";
 $html[] = '<table border="1" cellpadding="3">';
 
 $head = Ancen_signup_data::get_head($action);
@@ -35,11 +35,11 @@ foreach ($signup as $signup_data) {
     }
 
     if ($signup_data['accept'] === '1') {
-        $item[] = '錄取';
+        $item[] = _MD_ANCEN_SIGNUP_ACCEPT;
     } elseif ($signup_data['accept'] === '0') {
-        $item[] = '未錄取';
+        $item[] = _MD_ANCEN_SIGNUP_NOT_ACCEPT;
     } else {
-        $item[] = '尚未設定';
+        $item[] = _MD_ANCEN_SIGNUP_ACCEPT_NOT_YET;
     }
 
     $item[] = $signup_data['signup_date'];

@@ -52,7 +52,7 @@ switch ($op) {
     case 'ancen_signup_actions_destroy':
         Ancen_signup_actions::destroy($id);
         //header("location: {$_SERVER['PHP_SELF']}");
-        redirect_header($_SERVER['PHP_SELF'], 3, "成功刪除活動!");
+        redirect_header($_SERVER['PHP_SELF'], 3, _MD_ANCEN_SIGNUP_DELETE_SUCCESS);
         exit;
 
     //新增報名表單
@@ -64,7 +64,7 @@ switch ($op) {
     case 'ancen_signup_data_store':
         $id = Ancen_signup_data::store();
         Ancen_signup_data::mail($id, 'store');
-        redirect_header("{$_SERVER['PHP_SELF']}?op=ancen_signup_data_show&id=$id", 3, "成功報名活動!");
+        redirect_header("{$_SERVER['PHP_SELF']}?op=ancen_signup_data_show&id=$id", 3, _MD_ANCEN_SIGNUP_APPLY_SUCCESS);
         break;
 
     //顯示報名表
@@ -82,7 +82,7 @@ switch ($op) {
     case 'ancen_signup_data_update':
         Ancen_signup_data::update($id);
         Ancen_signup_data::mail($id, 'update');
-        redirect_header("{$_SERVER['PHP_SELF']}?op=ancen_signup_data_show&id=$id", 3, "成功修改報名資料!");
+        redirect_header("{$_SERVER['PHP_SELF']}?op=ancen_signup_data_show&id=$id", 3, _MD_ANCEN_SIGNUP_APPLY_UPDATE_SUCCESS);
         exit;
 
     //刪除報名資料
@@ -91,14 +91,14 @@ switch ($op) {
         $signup = Ancen_signup_data::get($id, $uid);
         Ancen_signup_data::destroy($id);
         Ancen_signup_data::mail($id, 'destroy', $signup);
-        redirect_header("{$_SERVER['PHP_SELF']}?id=$action_id", 3, "成功刪除報名資料!");
+        redirect_header("{$_SERVER['PHP_SELF']}?id=$action_id", 3, _MD_ANCEN_SIGNUP_APPLY_DELETE_SUCCESS);
         exit;
 
     //更改錄取狀態
     case 'ancen_signup_data_accept':
         Ancen_signup_data::accept($id, $accept);
         Ancen_signup_data::mail($id, 'accept');
-        redirect_header("{$_SERVER['PHP_SELF']}?id=$action_id", 3, "成功設定錄取狀態!");
+        redirect_header("{$_SERVER['PHP_SELF']}?id=$action_id", 3, _MD_ANCEN_SIGNUP_ACCEPT_SUCCESS);
         exit;
 
     //複製活動
@@ -115,7 +115,7 @@ switch ($op) {
     //批次匯入CSV資料
     case 'ancen_signup_data_import_csv':
         Ancen_signup_data::import_csv($id);
-        redirect_header("{$_SERVER['PHP_SELF']}?id=$id", 3, "成功批次匯入CSV資料!");
+        redirect_header("{$_SERVER['PHP_SELF']}?id=$id", 3, _MD_ANCEN_SIGNUP_IMPORT_SUCCESS);
         break;
 
     //匯入Excel
@@ -126,7 +126,7 @@ switch ($op) {
     //批次匯入Excel資料
     case 'ancen_signup_data_import_excel':
         Ancen_signup_data::import_excel($id);
-        redirect_header("{$_SERVER['PHP_SELF']}?id=$id", 3, "成功批次匯入Excel資料!");
+        redirect_header("{$_SERVER['PHP_SELF']}?id=$id", 3, _MD_ANCEN_SIGNUP_IMPORT_SUCCESS);
         break;
 
     //進行PDF匯出設定

@@ -1,7 +1,4 @@
 <?php
-// 如「模組目錄」= signup，則「首字大寫模組目錄」= Signup
-// 如「ancen_signup_data」= actions，則「模組物件」= Actions
-
 namespace XoopsModules\Ancen_signup;
 
 use XoopsModules\Ancen_signup\Ancen_signup_actions;
@@ -30,6 +27,9 @@ class Ancen_signup_data
         $uid = $_SESSION['can_add'] ? null : $xoopsUser->uid();
         //抓取預設值
         $db_values = empty($id) ? [] : self::get($id, $uid);
+        if ($id and empty($db_values)) {
+            redirect_header($_SERVER['PHP_SELF'] . "?id={$action_id}", 3, _MD_ANCEN_SIGNUP_CANNOT_BE_MODIFIED);
+        }
 
         foreach ($db_values as $col_name => $col_val) {
             $$col_name = $col_val;
@@ -52,11 +52,11 @@ class Ancen_signup_data
         $action = Ancen_signup_actions::get($action_id, true);
         $signup = Ancen_signup_data::get_all($action_id);
         if (time() > strtotime($action['end_date'])) {
-            redirect_header($_SERVER['PHP_SELF'], 3, "已報名截止，無法再進行報名或修改報名!");
+            redirect_header($_SERVER['PHP_SELF'], 3, _MD_ANCEN_SIGNUP_END);
         } elseif (!$action['enable']) {
-            redirect_header($_SERVER['PHP_SELF'], 3, "該報名已關閉，無法再進行報名或修改報名!");
+            redirect_header($_SERVER['PHP_SELF'], 3, _MD_ANCEN_SIGNUP_CLOSED);
         } elseif (count($action['signup']) >= ($action['number'] + $action['candidate'])) {
-            redirect_header($_SERVER['PHP_SELF'], 3, "人數已滿，無法再進行報名!");
+            redirect_header($_SERVER['PHP_SELF'], 3, _MD_ANCEN_SIGNUP_FULL);
         }
 
         $xoopsTpl->assign("action", $action);
@@ -110,7 +110,7 @@ class Ancen_signup_data
 
         if (count($action['signup']) > $action['number']) {
             $TadDataCenter->set_col('data_id', $id);
-            $TadDataCenter->saveCustomData(['tag' => ['候補']]);
+            $TadDataCenter->saveCustomData(['tag' => [_MD_ANCEN_SIGNUP_CANDIDATES]]);
         }
         return $id;
     }
@@ -129,7 +129,7 @@ class Ancen_signup_data
         $data = self::get($id, $uid);
 
         if (empty($data)) {
-            redirect_header($_SERVER['PHP_SELF'], 3, "查無報名資料，無法觀看");
+            redirect_header($_SERVER['PHP_SELF'], 3, _MD_ANCEN_SIGNUP_CANT_WATCH);
         }
 
         $myts = \MyTextSanitizer::getInstance();
@@ -278,7 +278,7 @@ class Ancen_signup_data
 
         global $xoopsDB;
         if (!$_SESSION['can_add']) {
-            redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
+            redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
         }
         $id = (int) $id;
         $accept = (int) $accept;
@@ -289,7 +289,7 @@ class Ancen_signup_data
     }
 
     //立即寄出
-    public static function send($title = "無標題", $content = "無內容", $email = "")
+    public static function send($title = _MD_ANCEN_SIGNUP_NO_TITLE, $content = _MD_ANCEN_SIGNUP_NO_CONTENT, $email = "")
     {
         global $xoopsUser;
         if (empty($email)) {
@@ -309,7 +309,7 @@ class Ancen_signup_data
         $id = (int) $id;
 
         if (empty($id)) {
-            redirect_header($_SERVER['PHP_SELF'], 3, "無編號，無法寄送通知信");
+            redirect_header($_SERVER['PHP_SELF'], 3, _MD_ANCEN_SIGNUP_UNABLE_TO_SEND);
         }
 
         $signup = $signup ? $signup : self::get($id);
@@ -324,25 +324,25 @@ class Ancen_signup_data
         $adm_email = $admUser->email();
 
         if ($type == 'destroy') {
-            $title = "【{$action['title']}】取消報名通知";
-            $head = "<p>您於【{$signup['signup_date']}】報名了【{$action['title']}】活動已於{$now} 由 {$name}取消報名。</p>";
-            $foot = "欲重新報名，請連至 " . XOOPS_URL . "/modules/ancen_signup/index.php?op=ancen_signup_data_create&action_id={$action['id']}";
+            $title = sprintf(_MD_ANCEN_SIGNUP_DESTROY_TITLE, $action['title']);
+            $head = sprintf(_MD_ANCEN_SIGNUP_DESTROY_HEAD, $signup['signup_date'], $action['title'], $now, $name);
+            $foot = _MD_ANCEN_SIGNUP_DESTROY_FOOT . XOOPS_URL . "/modules/ancen_signup/index.php?op=ancen_signup_data_create&action_id={$action['id']}";
         } elseif ($type == 'store') {
-            $title = "【{$action['title']}】報名完成通知";
-            $head = "<p>您於【{$signup['signup_date']}】報名【{$action['title']}】活動已於{$now} 由 {$name}報名完成。</p>";
-            $foot = "完整詳請，請連至 " . XOOPS_URL . "/modules/ancen_signup/index.php?id={$signup['action_id']}";
+            $title = sprintf(_MD_ANCEN_SIGNUP_STORE_TITLE, $action['title']);
+            $head = sprintf(_MD_ANCEN_SIGNUP_STORE_HEAD, $signup['signup_date'], $action['title'], $now, $name);
+            $foot = _MD_ANCEN_SIGNUP_FOOT . XOOPS_URL . "/modules/ancen_signup/index.php?id={$signup['action_id']}";
         } elseif ($type == 'update') {
-            $title = "【{$action['title']}】修改報名資料通知";
-            $head = "<p>您於【{$signup['signup_date']}】報名【{$action['title']}】活動已於{$now} 由 {$name}修改報名資料如下：</p>";
-            $foot = "完整詳請，請連至 " . XOOPS_URL . "/modules/ancen_signup/index.php?id={$signup['action_id']}";
+            $title = sprintf(_MD_ANCEN_SIGNUP_UPDATE_TITLE, $action['title']);
+            $head = sprintf(_MD_ANCEN_SIGNUP_UPDATE_HEAD, $signup['signup_date'], $action['title'], $now, $name);
+            $foot = _MD_ANCEN_SIGNUP_FOOT . XOOPS_URL . "/modules/ancen_signup/index.php?id={$signup['action_id']}";
         } elseif ($type == 'accept') {
-            $title = "【{$action['title']}】報名錄取狀態通知";
+            $title = sprintf(_MD_ANCEN_SIGNUP_ACCEPT_TITLE, $action['title']);
             if ($signup['accept'] == 1) {
-                $head = "<p>您於【{$signup['signup_date']}】報名【{$action['title']}】活動經審核為【<h2 style='color:blue'>錄取</h2>】，您的報名資料如下：</p>";
+                $head = sprintf(_MD_ANCEN_SIGNUP_ACCEPT_HEAD1, $signup['signup_date'], $action['title']);
             } else {
-                $head = "<p>您於【{$signup['signup_date']}】報名【{$action['title']}】活動經審核為【<span style='color:red;'>未錄取</span>】，您的報名資料如下：</p>";
+                $head = sprintf(_MD_ANCEN_SIGNUP_ACCEPT_HEAD0, $signup['signup_date'], $action['title']);
             }
-            $foot = "完整詳請，請連至 " . XOOPS_URL . "/modules/ancen_signup/index.php?id={$signup['action_id']}";
+            $foot = _MD_ANCEN_SIGNUP_FOOT . XOOPS_URL . "/modules/ancen_signup/index.php?id={$signup['action_id']}";
 
             $signupUser = $member_handler->getUser($signup['uid']);
             $email = $signupUser->email();
@@ -350,7 +350,7 @@ class Ancen_signup_data
 
         $content = self::mk_content($id, $head, $foot, $action);
         if (!self::send($title, $content, $email)) {
-            redirect_header($_SERVER['PHP_SELF'], 3, "通知信寄送失敗!");
+            redirect_header($_SERVER['PHP_SELF'], 3, _MD_ANCEN_SIGNUP_SENDING_FAILURE);
         }
         self::send($title, $content, $adm_email);
     }
@@ -416,7 +416,7 @@ class Ancen_signup_data
             <body>
             $head
             <h2>{$action['title']}</h2>
-            <div>活動日期：{$action['action_date']}</div>
+            <div>" . _MD_ANCEN_SIGNUP_ACTION_DATE . _TAD_FOR . "{$action['action_date']}</div>
             <div class='well'>{$action['detail']}</div>
             $table
             $foot
@@ -431,7 +431,7 @@ class Ancen_signup_data
     {
         global $xoopsTpl;
         if (!$_SESSION['can_add']) {
-            redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
+            redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
         }
 
         $action = Ancen_signup_actions::get($action_id);
@@ -445,7 +445,7 @@ class Ancen_signup_data
         //抓取內容
         $preview_data = [];
 
-        $handle = fopen($_FILES['csv']['tmp_name'], "r") or die("無法開啟");
+        $handle = fopen($_FILES['csv']['tmp_name'], "r") or die(_MD_ANCEN_SIGNUP_UNABLE_TO_OPEN);
         while (($val = fgetcsv($handle, 1000)) !== false) {
             $preview_data[] = mb_convert_encoding($val, 'UTF-8', 'Big5');
         }
@@ -468,7 +468,7 @@ class Ancen_signup_data
         Utility::xoops_security_check();
 
         if (!$_SESSION['can_add']) {
-            redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
+            redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
         }
 
         $action_id = (int) $action_id;
@@ -499,7 +499,7 @@ class Ancen_signup_data
 
             if (count($action['signup']) > $action['number']) {
                 $TadDataCenter->set_col('data_id', $id);
-                $TadDataCenter->saveCustomData(['tag' => ['候補']]);
+                $TadDataCenter->saveCustomData(['tag' => [_MD_ANCEN_SIGNUP_CANDIDATE]]);
             }
         }
     }
@@ -509,7 +509,7 @@ class Ancen_signup_data
     {
         global $xoopsTpl;
         if (!$_SESSION['can_add']) {
-            redirect_header($_SERVER['PHP_SELF'], 3, "您沒有權限使用此功能");
+            redirect_header($_SERVER['PHP_SELF'], 3, _TAD_PERMISSION_DENIED);
         }
 
         $action = Ancen_signup_actions::get($action_id);
@@ -577,9 +577,9 @@ class Ancen_signup_data
         }
 
         if (!$only_tdc) {
-            $head[] = '錄取';
-            $head[] = '報名日期';
-            $head[] = '身份';
+            $head[] = _MD_ANCEN_SIGNUP_ACCEPT;
+            $head[] = _MD_ANCEN_SIGNUP_APPLY_DATE;
+            $head[] = _MD_ANCEN_SIGNUP_IDENTITY;
         }
         if ($return_type) {
             return [$head, $type];
