@@ -42,7 +42,7 @@ switch ($op) {
     case 'ancen_signup_actions_destroy':
         Ancen_signup_actions::destroy($id);
         //header("location: {$_SERVER['PHP_SELF']}");
-        redirect_header($_SERVER['PHP_SELF'], 3, "成功刪除活動!");
+        redirect_header($_SERVER['PHP_SELF'], 3, _MA_ANCEN_SIGNUP_DELETE_SUCCESS);
         exit;
 
     default:
