@@ -20,3 +20,6 @@ define('_MI_ANCEN_SIGNUP_ONLY_ENABLE_DESC', '若是只會顯示可報名活動�
 // admin/menu.php
 define('_MI_ANCEN_SIGNUP_ACCTIONS_MANAGER', '活動管理');
 define('_MI_ANCEN_SIGNUP_PERMISSION_SETTING', '權限設定');
+
+// include\onInstall.php
+define('_MI_ANCEN_SIGNUP_ADMIN', '活動報名管理');

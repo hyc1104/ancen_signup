@@ -10,9 +10,9 @@ if (!class_exists('XoopsModules\Ancen_signup\Update')) {
 }
 
 // 安裝前
-function xoops_module_pre_install_ancen_signup(XoopsModule $module)
-{
-}
+//function xoops_module_pre_install_ancen_signup(XoopsModule $module)
+//{
+//}
 
 // 安裝後
 function xoops_module_install_ancen_signup(XoopsModule $module)
@@ -23,7 +23,7 @@ function xoops_module_install_ancen_signup(XoopsModule $module)
     Utility::mk_dir(XOOPS_ROOT_PATH . "/uploads/ancen_signup/file");
     Utility::mk_dir(XOOPS_ROOT_PATH . "/uploads/ancen_signup/image");
     Utility::mk_dir(XOOPS_ROOT_PATH . "/uploads/ancen_signup/image/.thumbs");
-    $groupid = Update::mk_group(_MD_ANCEN_SIGNUP_ADMIN);
+    $groupid = Update::mk_group(_MI_ANCEN_SIGNUP_ADMIN);
     $perm_handler = xoops_getHandler('groupperm');
     $perm = $perm_handler->create();
     $perm->setVar('gperm_groupid', $groupid);

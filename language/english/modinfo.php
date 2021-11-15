@@ -20,3 +20,6 @@ define('_MI_ANCEN_SIGNUP_ONLY_ENABLE_DESC', 'If only enrolable events will be sh
 // admin/menu.php
 define('_MI_ANCEN_SIGNUP_ACCTIONS_MANAGER', 'Event Management');
 define('_MI_ANCEN_SIGNUP_PERMISSION_SETTING', 'permission setting');
+
+// include\onInstall.php
+define('_MI_ANCEN_SIGNUP_ADMIN', 'activity report name management');

@@ -13,7 +13,6 @@ define('_MD_ANCEN_SIGNUP_NOT_ACCEPT', '未錄取');
 define('_MD_ANCEN_SIGNUP_ACCEPT_NOT_YET', '尚未設定');
 define('_MD_ANCEN_SIGNUP_APPLY_DATE', '報名日期');
 define('_MD_ANCEN_SIGNUP_IDENTITY', '身份');
-define('_MD_ANCEN_SIGNUP_ADMIN', '活動報名管理');
 define('_MD_ANCEN_SIGNUP_APPLY_LIST', '報名名單');
 define('_MD_ANCEN_SIGNUP_APPLY_NOW', '立即報名');
 define('_MD_ANCEN_SIGNUP_DELETE_SUCCESS', '成功刪除活動!');

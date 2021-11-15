@@ -13,7 +13,6 @@ define('_MD_ANCEN_SIGNUP_NOT_ACCEPT', 'Not Admitted');
 define('_MD_ANCEN_SIGNUP_NOT_ACCEPT_NOT_YET', 'Not yet set');
 define('_MD_ANCEN_SIGNUP_APPLY_DATE', 'Application date');
 define('_MD_ANCEN_SIGNUP_IDENTITY', 'Identity');
-define('_MD_ANCEN_SIGNUP_ADMIN', 'Activity Enrollment Management');
 define('_MD_ANCEN_SIGNUP_APPLY_LIST', 'Enrollment List');
 define('_MD_ANCEN_SIGNUP_APPLY_NOW', 'Register Now');
 define('_MD_ANCEN_SIGNUP_DELETE_SUCCESS', 'Successful deletion of event!');
