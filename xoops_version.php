@@ -14,7 +14,7 @@ $modversion['image'] = 'images/logo.png';
 $modversion['dirname'] = basename(dirname(__FILE__));
 
 //---模組狀態資訊---//
-$modversion['release_date'] = '2021-09-01';
+$modversion['release_date'] = '2021-11-15';
 $modversion['module_website_url'] = 'https://github.com/hyc1104/ancen_signup';
 $modversion['module_website_name'] = 'Ancen Signup Github';
 $modversion['module_status'] = 'release';
